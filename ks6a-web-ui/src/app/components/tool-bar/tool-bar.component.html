@@ -1,0 +1,16 @@
+<div class="top-0 sticky z-[2] p-1 flex items-center border-0 border-b-2 border-solid border-gray-300 bg-gradient-to-r from-[color:var(--primary-75)] to-[color:var(--primary-50)]">
+  <div *transloco="let t" class="pl-1 flex items-center flex-1 text-white">
+    <i data-icon="domain"></i>
+    <span class="pl-1">{{ t('app-name') }}</span>
+  </div>
+  <div class="flex">
+    <ng-select
+      class="w-16"
+      [items]="getLangs()"
+      [clearable]="false"
+      [(ngModel)]="currentLang"
+      (change)="switchLang($event)"
+    >
+    </ng-select>
+  </div>
+</div>

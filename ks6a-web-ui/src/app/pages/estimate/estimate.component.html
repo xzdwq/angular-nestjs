@@ -1,0 +1,31 @@
+<div class="flex items-center">
+  <app-route-go #go (click)="go.routeGo('project/'+projectIdSelect)"></app-route-go>
+  <span *transloco="let t" class="pl-4 font-bold text-[color:var(--gray-150)]">{{ t('estimates') }}:</span>
+</div>
+<app-message-mask [isShowMsg]="isShowMsg"></app-message-mask>
+
+<!-- Список смет для конкретного объекта сметы -->
+<app-hbf-content *ngIf="estimates.length">
+  <!-- Header -->
+  <ng-template #headerTpl>
+    <tr *transloco="let t">
+      <th>{{ t('kks') }}</th>
+      <th>{{ t('local-estimate-number') }}</th>
+      <th>{{ t('name') }}</th>
+    </tr>
+  </ng-template>
+  <!-- Body -->
+  <ng-template #bodyTpl>
+    <tr *ngFor="let estimate of estimates">
+      <td
+        class="text-blue-800 underline cursor-pointer"
+      >{{ estimate.code }}</td>
+      <td>{{ estimate.localEstimateNumber }}</td>
+      <td>{{ estimate.name }}</td>
+    </tr>
+  </ng-template>
+  <!-- Footer -->
+  <ng-template #footerTpl>
+    <div *transloco="let t; read: 'info'">{{ t('all-records', { count: estimates.length}) }}</div>
+  </ng-template>
+</app-hbf-content>

@@ -1,0 +1,12 @@
+<div *ngIf="isShow" class="absolute w-full h-full bg-gray-200/80 z-[1]">
+  <div class="h-full flex items-center justify-center">
+    <i *ngIf="iconName; else baseLoad"
+      [attr.data-icon]="iconName"
+      class="animate-spin inline-flex text-[color:var(--brand-75)]"
+      [style.font-size]="spinerSize + 'px'"
+    ></i>
+    <ng-template #baseLoad>
+      <span class="w-6 h-6 rounded-full inline-block relative border-8 border-solid animate-loading-base"></span>
+    </ng-template>
+  </div>
+</div>

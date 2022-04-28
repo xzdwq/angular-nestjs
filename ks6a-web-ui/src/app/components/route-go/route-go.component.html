@@ -1,0 +1,8 @@
+<div class="p-1">
+  <button
+    class="pr-4 py-1 duration-300 bg-gray-200 hover:bg-gray-300"
+  >
+    <i [attr.data-icon]="iconName"></i>
+    <span *transloco="let t, read: 'info'">{{ t(labelLang) }}</span>
+  </button>
+</div>

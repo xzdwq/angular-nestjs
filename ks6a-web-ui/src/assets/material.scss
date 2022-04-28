@@ -1,0 +1,9 @@
+// @use '@angular/material' as mat;
+
+// $override-typography: mat.define-typography-config(
+//   $font-family: var(--font-base),
+// );
+
+// @include mat.core($override-typography);
+
+@import '~@ng-select/ng-select/themes/default.theme.css';

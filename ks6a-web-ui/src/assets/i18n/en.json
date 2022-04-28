@@ -1,0 +1,19 @@
+{
+  "app-name": "KS-6a",
+  "msg": {
+    "data-empty": "No data",
+    "data-error": "An error occurred while trying to upload data. Please try refreshing the page or contact the developer"
+  },
+  "info": {
+    "all-records": "Total records: {{ count }}",
+    "back": "Back"
+  },
+  "projects": "Projects",
+  "object-estimate": "Object estimate",
+  "work-code": "Work code",
+  "work-title": "Work title",
+  "kks": "KKS",
+  "local-estimate-number": "Local estimate number",
+  "name": "Name",
+  "estimates": "Estimates"
+}

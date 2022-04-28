@@ -1,0 +1,15 @@
+<ul class="flex overflow-auto mt-1 mb-0">
+  <li
+    *ngFor="let project of items; let idx = index"
+    class="ml-1 text-center flex items-center justify-center select-none cursor-pointer rounded-t-sm p-1 duration-200"
+    [ngClass]="{
+      'bg-[color:var(--primary-25)]': idx === tabIndex,
+      'mt-1 bg-gray-200 text-gray-500': idx !== tabIndex
+    }"
+    (click)="tabClick(idx)"
+  >
+    <div class="flex items-center">
+      <span class="leading-none p-2">{{ project.name }}</span>
+    </div>
+  </li>
+</ul>

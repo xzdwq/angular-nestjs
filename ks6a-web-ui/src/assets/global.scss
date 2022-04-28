@@ -1,0 +1,52 @@
+html, body {
+  @apply font-base m-0 h-full;
+}
+
+body {
+  @include colors;
+}
+
+i {
+  display: block;
+  font-weight: normal;
+  font-size: var(--icon-size);
+  font-family: 'Material Icons Outline';
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  white-space: nowrap;
+  text-transform: none;
+  word-wrap: normal;
+  font-feature-settings: 'liga';
+
+  &::after {
+    content: attr(data-icon);
+  }
+
+  &.filled {
+    font-family: 'Material Icons';
+  }
+}
+
+button {
+  @apply border-none m-0 decoration-0 cursor-pointer font-base rounded inline-flex items-center text-base;
+}
+
+thead th {
+  height: 40px;
+  border-right: 1px solid var(--gray-25);
+}
+
+tbody tr {
+  border-bottom: 1px solid var(--gray-25);
+  td {
+    padding: 2px 10px;
+    box-shadow: -1px 0px 0px 0px var(--gray-25);
+  }
+  &:nth-child(even) {
+    background-color: var(--gray-25);
+  }
+  &:hover {
+    background-color: var(--primary-10);
+  }
+}

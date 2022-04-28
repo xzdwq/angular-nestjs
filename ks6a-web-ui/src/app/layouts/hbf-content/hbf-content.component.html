@@ -1,0 +1,16 @@
+<div class="flex-1 overflow-auto">
+  <table class="w-full border-collapse text-base">
+    <!-- Header -->
+    <thead class="top-0 sticky bg-[color:var(--primary-25)]">
+      <ng-container *ngTemplateOutlet="headerTpl"></ng-container>
+    </thead>
+    <!-- Body -->
+    <tbody>
+      <ng-container *ngTemplateOutlet="bodyTpl"></ng-container>
+    </tbody>
+  </table>
+</div>
+<!-- Footer -->
+<div class="p-2 bg-[color:var(--gray-75)] flex items-center">
+  <ng-container *ngTemplateOutlet="footerTpl"></ng-container>
+</div>

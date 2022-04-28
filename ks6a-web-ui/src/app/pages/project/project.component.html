@@ -1,0 +1,16 @@
+<!-- Список проектов -->
+<app-tab-panel
+  [items]="projects"
+  [tabIndex]="tabIndex"
+  (tabClickEvent)="tabClick($event)"
+></app-tab-panel>
+<!-- Содержимое проекта -->
+<div
+  class="relative border-3 border-solid border-[color:var(--primary-25)] h-full overflow-y-auto"
+>
+  <app-message-mask [isShowMsg]="isShowMsg"></app-message-mask>
+  <app-load-mask [delayClose]="500"></app-load-mask>
+  <div class="h-full overflow-y-auto flex flex-col">
+    <router-outlet></router-outlet>
+  </div>
+</div>

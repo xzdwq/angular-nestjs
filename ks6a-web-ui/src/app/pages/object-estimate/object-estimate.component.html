@@ -1,0 +1,25 @@
+<app-message-mask [isShowMsg]="isShowMsg"></app-message-mask>
+<!-- Объекты смет для проекта -->
+<app-hbf-content *ngIf="objectEstimates.length">
+  <!-- Header -->
+  <ng-template #headerTpl>
+    <tr *transloco="let t">
+      <th>{{ t('work-code') }}</th>
+      <th>{{ t('work-title') }}</th>
+    </tr>
+  </ng-template>
+  <!-- Body -->
+  <ng-template #bodyTpl>
+    <tr *ngFor="let objectEstimate of objectEstimates">
+      <td
+        class="text-blue-800 underline cursor-pointer"
+        (click)="handlerObjectEstimate(objectEstimate)"
+      >{{ objectEstimate.code }}</td>
+      <td>{{ objectEstimate.name }}</td>
+    </tr>
+  </ng-template>
+  <!-- Footer -->
+  <ng-template #footerTpl>
+    <div *transloco="let t; read: 'info'">{{ t('all-records', { count: objectEstimates.length}) }}</div>
+  </ng-template>
+</app-hbf-content>
