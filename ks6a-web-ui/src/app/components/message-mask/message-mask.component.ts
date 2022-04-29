@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 
 import { MessageMaskService } from '@cmp/message-mask/message-mask.service';
 import { MsgParamsType } from '@cmp/message-mask/msg-type';
@@ -16,7 +16,10 @@ export class MessageMaskComponent implements OnInit {
   ) {}
 
   ngOnInit (): void {
-    if (this.isShowMsg) this.msgParams = this.messageMaskService.getMsgParams();
+  }
+
+  ngOnChanges (changes: SimpleChanges) {
+    if (changes['isShowMsg'].currentValue) this.msgParams = this.messageMaskService.getMsgParams();
   }
 
 }

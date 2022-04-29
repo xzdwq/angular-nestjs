@@ -12,7 +12,7 @@ export class ProjectService {
 
   // Получаем проекты
   loadProjects (): Observable<Project[]> {
-    return from(ajax.get('api/get-projects')
+    return from(ajax.get('/api/project/get-projects')
     .pipe(
       map((res: AjaxResponse<any>) => {
         return res.response;

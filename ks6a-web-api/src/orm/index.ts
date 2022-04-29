@@ -1,10 +1,16 @@
 // public
-// import { ConditionLinkEntity } from '@src/orm/entities/req/condition_link.entity';
+import { ProjectEntity } from '@src/orm/entities/public/project.entity';
+import { ObjectEstimateEntity } from '@src/orm/entities/public/object_estimate.entity';
+import { EstimateEntity } from '@src/orm/entities/public/estimate.entity';
 
 export const entities = [
-  // ConditionLinkEntity,
+  ProjectEntity,
+  ObjectEstimateEntity,
+  EstimateEntity,
 ];
 
 export {
-  // ConditionLinkEntity,
+  ProjectEntity,
+  ObjectEstimateEntity,
+  EstimateEntity,
 };

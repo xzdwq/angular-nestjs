@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { catchError, from, map, Observable } from 'rxjs';
+import { ajax, AjaxResponse } from 'rxjs/ajax';
 
 import { ObjectEstimate } from '@app/dto';
-import { OBJECT_ESTIMATES } from '@app/mock/data';
 import { LoadMaskService } from '@cmp/load-mask/load-mask.service';
 
 @Injectable({
@@ -14,10 +14,18 @@ export class ObjectEstimateService {
   ) {}
 
   // Получаем объекты сметы для конкретного проекта
-  loadObjectEstimates (projectId: number): Observable<ObjectEstimate[]> {
+  loadObjectEstimates (projectId: string): Observable<ObjectEstimate[]> {
     this.loadMaskService.setLoad(true);
-    const estimateForProject = OBJECT_ESTIMATES.filter((i: ObjectEstimate) => i.projectId === projectId);
-    this.loadMaskService.setLoad(false);
-    return of(estimateForProject);
+    return from(ajax.get(`/api/object-estimate/get-object-estimates?projectId=${projectId}`)
+    .pipe(
+      map((res: AjaxResponse<any>) => {
+        this.loadMaskService.setLoad(false);
+        return res.response;
+      }),
+      catchError(error => {
+        this.loadMaskService.setLoad(false);
+        return error;
+      }),
+    ));
   }
 }

@@ -11,8 +11,8 @@ import { Project } from '@app/dto';
   host: { 'class': 'h-full flex flex-col overflow-hidden' },
 })
 export class ProjectComponent implements OnInit {
-  public projectId!: number;
-  public objectEstimateId!: number;
+  public projectId!: string;
+  public objectEstimateId!: string;
   public projects: Project[] = [];
   public tabIndex: number = 0;
   public isShowMsg: boolean = false;
@@ -26,8 +26,8 @@ export class ProjectComponent implements OnInit {
   ngOnInit (): void {
     this.route?.firstChild?.params
       .subscribe(params => {
-        this.projectId = +params['projectId'];
-        this.objectEstimateId = +params['objectEstimateId'];
+        this.projectId = params['projectId'];
+        this.objectEstimateId = params['objectEstimateId'];
       },
     );
     this.projectService.loadProjects()
@@ -37,9 +37,9 @@ export class ProjectComponent implements OnInit {
           this.messageMaskService.setIsShowMsg({ subRaw: ProjectComponent.name });
           this.isShowMsg = true;
         }
+        this.checkProjectLocalStorage();
       },
     );
-    this.checkProjectLocalStorage();
   }
 
   tabClick (tabIndex: number): void {
@@ -74,12 +74,12 @@ export class ProjectComponent implements OnInit {
         localStorage.setItem('projectTabIndex', `${projectTabIndex}`);
         this.router.navigate([
           `/project/${
-            !this.objectEstimateId
+            !this.objectEstimateId || this.objectEstimateId == '0'
               ? this.projects[projectTabIndex].id
               : this.projects[projectTabIndex].id+'/'+this.objectEstimateId
           }`,
         ]);
-        this.objectEstimateId = 0;
+        this.objectEstimateId = '0';
         this.tabIndex = projectTabIndex;
       }
     } else {

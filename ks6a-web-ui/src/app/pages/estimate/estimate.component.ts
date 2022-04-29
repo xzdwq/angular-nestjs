@@ -12,8 +12,8 @@ import { Estimate } from '@app/dto';
   host: { class: 'h-full flex flex-col' },
 })
 export class EstimateComponent implements OnInit {
-  public projectIdSelect!: number;
-  public objectEstimateId!: number;
+  public projectIdSelect!: string;
+  public objectEstimateId!: string;
   public estimates: Estimate[] = [];
   public isShowMsg: boolean = false;
   constructor (
@@ -26,8 +26,8 @@ export class EstimateComponent implements OnInit {
   ngOnInit (): void {
     this.route.params
       .subscribe(params => {
-        this.projectIdSelect = +params['projectId'];
-        this.objectEstimateId = +params['objectEstimateId'];
+        this.projectIdSelect = params['projectId'];
+        this.objectEstimateId = params['objectEstimateId'];
         this.estimateService.loadEstimates(this.objectEstimateId)
           .subscribe(estimate => {
             this.estimates = estimate;
