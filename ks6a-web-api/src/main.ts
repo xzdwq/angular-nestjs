@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as morgan from 'morgan';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -12,6 +13,11 @@ async function run() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     bufferLogs: true,
   });
+
+  app.useGlobalPipes(new ValidationPipe({
+    transform: true,
+  }));
+
   const config = app.get(ConfigService),
     http_resolve_log = config.get('logger').http_resolve_log,
     noauth_user_mask = config.get('logger').noauth_user_mask,

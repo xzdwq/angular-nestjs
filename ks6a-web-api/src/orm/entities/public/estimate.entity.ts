@@ -21,14 +21,14 @@ export class EstimateEntity {
   })
   guid: string;
 
-  @Column({ length: 255 })
+  @Column({ length: 1024 })
   name: string;
 
   @Column({
-    name: 'name_en',
-    length: 255,
+    name: 'name_eng',
+    length: 1024,
   })
-  nameEn: string;
+  nameEng: string;
 
   @Column({
     length: 255,

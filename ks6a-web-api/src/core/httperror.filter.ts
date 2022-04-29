@@ -12,10 +12,12 @@ export class HttpErrorFilter implements ExceptionFilter {
     const request = ctx.getRequest();
     const response = ctx.getResponse();
     const status = exception.getStatus ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
+    const message = exception.getResponse()['message'] || exception.message || exception.getResponse();
 
     const errorResponse = {
       success: false,
       code: status,
+      error: exception.getResponse()['error'],
       timestamp: new Date().toLocaleTimeString('ru', {
         day: 'numeric',
         month: 'numeric',
@@ -23,10 +25,10 @@ export class HttpErrorFilter implements ExceptionFilter {
       }),
       path: request.url,
       method: request.method,
-      message: exception.message,
+      message: message,
     };
     const user = request.user?.email || config.logger.noauth_user_mask;
-    logger.error(`[${user}] ${request.method} ${request.url} ${status} - ${exception}`, HttpErrorFilter.name);
+    logger.error(`[${user}] ${request.method} ${request.url} ${status} - ${message}`, HttpErrorFilter.name);
 
     response.status(status).json(errorResponse);
   }

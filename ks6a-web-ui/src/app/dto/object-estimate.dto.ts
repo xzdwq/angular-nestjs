@@ -7,5 +7,5 @@ export interface ObjectEstimate {
   projectId: string;
   code: string;
   name: string;
-  nameEn?: string;
+  nameEng?: string;
 };

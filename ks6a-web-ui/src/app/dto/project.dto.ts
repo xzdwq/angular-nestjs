@@ -6,5 +6,5 @@ export interface Project {
   sorting?: number;
   code: string;
   name: string;
-  nameEn?: string;
+  nameEng?: string;
 };

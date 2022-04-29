@@ -7,6 +7,6 @@ export interface Estimate {
   objectEstimateId: string;
   code: string;
   name: string;
-  nameEn?: string;
+  nameEng?: string;
   localEstimateNumber: string;
 };
