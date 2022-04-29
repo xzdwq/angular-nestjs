@@ -32,17 +32,9 @@ export class EstimateComponent implements OnInit {
         .subscribe({
           next: (estimates) => {
             this.estimates = estimates;
-            if (!this.estimates.length) {
-              this.messageMaskService.setIsShowMsg({ subRaw: EstimateComponent.name });
-              this.isShowMsg = true;
-            } else {
-              this.isShowMsg = false;
-            }
+            this.isShowMsg = !this.estimates.length ? true : false;
           },
-          error: (err) => {
-            this.messageMaskService.setIsShowMsg({ type: 'danger', msgRaw: err.message, subRaw: EstimateComponent.name });
-            this.isShowMsg = true;
-          },
+          error: () => this.isShowMsg = true,
         });
       });
   }

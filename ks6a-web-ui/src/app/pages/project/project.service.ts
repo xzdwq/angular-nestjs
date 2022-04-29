@@ -1,26 +1,28 @@
 import { Injectable } from '@angular/core';
-// import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, from, map, Observable } from 'rxjs';
-import { ajax, AjaxResponse } from 'rxjs/ajax';
+import { HttpClient } from '@angular/common/http';
+import { map, Observable } from 'rxjs';
 
+import { MessageMaskService } from '@cmp/message-mask/message-mask.service';
 import { Project } from '@app/dto';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectService {
-  constructor () {}
+  constructor (
+    protected http: HttpClient,
+    private messageMaskService: MessageMaskService,
+  ) {}
 
   // Получаем проекты
   loadProjects (): Observable<Project[]> {
-    return from(ajax.get('/api/project/get-projects')
-    .pipe(
-      map((res: AjaxResponse<any>) => {
-        return res.response;
-      }),
-      catchError(error => {
-        throw new Error(error.status + ' - ' + error.request.url + ': ' + error.message);
-      }),
-    ));
+    return this.http.get<Project[]>('/api/project/get-projects')
+      .pipe(
+        map((res) => {
+          if (!res.length)
+            this.messageMaskService.setIsShowMsg({ subRaw: ProjectService.name });
+          return res;
+        }),
+      );
   }
 }

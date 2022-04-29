@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { MessageMaskService } from '@cmp/message-mask/message-mask.service';
 import { ProjectService } from '@page/project/project.service';
 import { Project } from '@app/dto';
 
@@ -19,7 +18,6 @@ export class ProjectComponent implements OnInit {
   constructor (
     private route: ActivatedRoute,
     private router: Router,
-    private messageMaskService: MessageMaskService,
     private projectService: ProjectService,
   ) {}
 
@@ -34,18 +32,10 @@ export class ProjectComponent implements OnInit {
       .subscribe({
         next: (projects) => {
           this.projects = projects;
-          if (!this.projects.length) {
-            this.messageMaskService.setIsShowMsg({ subRaw: ProjectComponent.name });
-            this.isShowMsg = true;
-          } else {
-            this.isShowMsg = false;
-          }
+          this.isShowMsg = !this.projects.length ? true : false;
           this.checkProjectLocalStorage();
         },
-        error: (err) => {
-          this.messageMaskService.setIsShowMsg({ type: 'danger', msgRaw: err.message, subRaw: ProjectComponent.name });
-          this.isShowMsg = true;
-        },
+        error: () => this.isShowMsg = true,
       });
   }
 

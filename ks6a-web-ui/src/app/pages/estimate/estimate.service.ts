@@ -1,31 +1,38 @@
 import { Injectable } from '@angular/core';
-import { catchError, from, map, Observable } from 'rxjs';
-import { ajax, AjaxResponse } from 'rxjs/ajax';
+import { HttpClient } from '@angular/common/http';
+import { map, Observable } from 'rxjs';
 
 import { Estimate } from '@app/dto';
 import { LoadMaskService } from '@cmp/load-mask/load-mask.service';
+import { MessageMaskService } from '@cmp/message-mask/message-mask.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EstimateService {
   constructor (
+    protected http: HttpClient,
     private loadMaskService: LoadMaskService,
+    private messageMaskService: MessageMaskService,
   ) {}
 
   // Получаем сметы для конкретного объекта сметы
   loadEstimates (objectEstimateId: number): Observable<Estimate[]> {
     this.loadMaskService.setLoad(true);
-    return from(ajax.get(`/api/estimate/get-estimates?objectEstimateId=${objectEstimateId}`)
-    .pipe(
-      map((res: AjaxResponse<any>) => {
-        this.loadMaskService.setLoad(false);
-        return res.response;
-      }),
-      catchError(error => {
-        this.loadMaskService.setLoad(false);
-        throw new Error(error.status + ' - ' + error.request.url + ': ' + error.message);
-      }),
-    ));
+    return this.http.get<Estimate[]>('/api/estimate/get-estimates',
+      {
+        params: {
+          objectEstimateId: objectEstimateId,
+        },
+      },
+    )
+      .pipe(
+        map((res) => {
+          if (!res.length)
+            this.messageMaskService.setIsShowMsg({ subRaw: EstimateService.name });
+          this.loadMaskService.setLoad(false);
+          return res;
+        }),
+      );
   }
 }

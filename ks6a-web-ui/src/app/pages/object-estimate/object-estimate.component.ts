@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { MessageMaskService } from '@cmp/message-mask/message-mask.service';
 import { ObjectEstimateService } from '@page/object-estimate/object-estimate.service';
 import { ObjectEstimate } from '@app/dto';
 
@@ -17,7 +16,6 @@ export class ObjectEstimateComponent implements OnInit {
   constructor (
     private route: ActivatedRoute,
     private router: Router,
-    private messageMaskService: MessageMaskService,
     private objectEstimateService: ObjectEstimateService,
   ) {}
 
@@ -28,17 +26,9 @@ export class ObjectEstimateComponent implements OnInit {
         .subscribe({
           next: (objectEstimates) => {
             this.objectEstimates = objectEstimates;
-            if (!this.objectEstimates.length) {
-              this.messageMaskService.setIsShowMsg({ subRaw: ObjectEstimateComponent.name });
-              this.isShowMsg = true;
-            } else {
-              this.isShowMsg = false;
-            }
+            this.isShowMsg = !this.objectEstimates.length ? true : false;
           },
-          error: (err) => {
-            this.messageMaskService.setIsShowMsg({ type: 'danger', msgRaw: err.message, subRaw: ObjectEstimateComponent.name });
-            this.isShowMsg = true;
-          },
+          error: () => this.isShowMsg = true,
         });
     });
   }

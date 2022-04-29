@@ -4,7 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import configuration from '@cfg/configuration';
-import { HttpErrorFilter } from '@src/core/httperror.filter';
+import { HttpErrorFilter } from '@src/core/http-error.filter';
 import { AppController } from '@src/app.controller';
 import { AppService } from '@src/app.service';
 import { entities } from '@src/orm';
