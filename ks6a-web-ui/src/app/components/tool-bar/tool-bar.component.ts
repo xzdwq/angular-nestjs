@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslocoService, AvailableLangs } from '@ngneat/transloco';
+import { TranslocoService, AvailableLangs, LangDefinition } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-tool-bar',
@@ -15,10 +15,10 @@ export class ToolBarComponent implements OnInit {
     this.currentLang = this.translocoService.getActiveLang();
   }
 
-  switchLang (lang: string): void {
-    this.translocoService.setActiveLang(lang);
-    this.currentLang = lang;
-    localStorage.setItem('lang', `${lang}`);
+  switchLang (lang: LangDefinition): void {
+    this.translocoService.setActiveLang(lang.id);
+    this.currentLang = lang.id;
+    localStorage.setItem('lang', `${lang.id}`);
   }
 
   getLangs (): AvailableLangs {

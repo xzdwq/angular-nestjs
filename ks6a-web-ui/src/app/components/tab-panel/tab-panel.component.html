@@ -8,8 +8,11 @@
     }"
     (click)="tabClick(idx)"
   >
-    <div class="flex items-center">
-      <span class="leading-none p-2">{{ project.name }}</span>
+    <div class="flex items-center justify-center p-2 min-w-[70px]">
+      <ng-container *transloco="let t; currentLang as currentLang">
+        <span *ngIf="currentLang === 'ru'">{{ project.name }}</span>
+        <span *ngIf="currentLang === 'en'">{{ project.nameEn }}</span>
+      </ng-container>
     </div>
   </li>
 </ul>

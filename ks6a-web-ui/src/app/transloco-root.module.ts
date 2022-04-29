@@ -25,12 +25,15 @@ let lang = 'ru';
   : lang = localStorage.getItem('lang') || lang;
 
 @NgModule({
-  exports: [ TranslocoModule ],
+  exports: [TranslocoModule],
   providers: [
     {
       provide: TRANSLOCO_CONFIG,
       useValue: translocoConfig({
-        availableLangs: ['en', 'ru'],
+        availableLangs: [
+          { id: 'ru', label: 'Русский' },
+          { id: 'en', label: 'Englang' },
+        ],
         defaultLang: lang,
         reRenderOnLangChange: true,
         prodMode: environment.production,

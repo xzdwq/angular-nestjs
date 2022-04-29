@@ -4,7 +4,7 @@
   <!-- Header -->
   <ng-template #headerTpl>
     <tr *transloco="let t">
-      <th>{{ t('work-code') }}</th>
+      <th class="w-72">{{ t('work-code') }}</th>
       <th>{{ t('work-title') }}</th>
     </tr>
   </ng-template>
@@ -15,7 +15,12 @@
         class="text-blue-800 underline cursor-pointer"
         (click)="handlerObjectEstimate(objectEstimate)"
       >{{ objectEstimate.code }}</td>
-      <td>{{ objectEstimate.name }}</td>
+      <td>
+        <ng-container *transloco="let t; currentLang as currentLang">
+          <span *ngIf="currentLang === 'ru'">{{ objectEstimate.name }}</span>
+          <span *ngIf="currentLang === 'en'">{{ objectEstimate.nameEn }}</span>
+        </ng-container>
+      </td>
     </tr>
   </ng-template>
   <!-- Footer -->

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+// import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, from, map, Observable } from 'rxjs';
 import { ajax, AjaxResponse } from 'rxjs/ajax';
 
@@ -18,7 +19,7 @@ export class ProjectService {
         return res.response;
       }),
       catchError(error => {
-        return error;
+        throw new Error(error.status + ' - ' + error.request.url + ': ' + error.message);
       }),
     ));
   }

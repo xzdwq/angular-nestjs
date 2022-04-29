@@ -11,7 +11,7 @@ import { ObjectEstimate } from '@app/dto';
   host: { class: 'h-full flex flex-col' },
 })
 export class ObjectEstimateComponent implements OnInit {
-  public projectIdSelect!: string;
+  public projectIdSelect!: number;
   public objectEstimates: ObjectEstimate[] = [];
   public isShowMsg: boolean = false;
   constructor (
@@ -25,17 +25,25 @@ export class ObjectEstimateComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.projectIdSelect = params['projectId'];
       this.objectEstimateService.loadObjectEstimates(this.projectIdSelect)
-        .subscribe(objectEstimates => {
-          this.objectEstimates = objectEstimates;
-          if (!this.objectEstimates.length) {
-            this.messageMaskService.setIsShowMsg({ subRaw: ObjectEstimateComponent.name });
+        .subscribe({
+          next: (objectEstimates) => {
+            this.objectEstimates = objectEstimates;
+            if (!this.objectEstimates.length) {
+              this.messageMaskService.setIsShowMsg({ subRaw: ObjectEstimateComponent.name });
+              this.isShowMsg = true;
+            } else {
+              this.isShowMsg = false;
+            }
+          },
+          error: (err) => {
+            this.messageMaskService.setIsShowMsg({ type: 'danger', msgRaw: err.message, subRaw: ObjectEstimateComponent.name });
             this.isShowMsg = true;
-          }
+          },
         });
     });
   }
 
-  // Выбор конкретной сметы из проекта
+  // Выбор конкретного объекта сметы из проекта
   handlerObjectEstimate (objectEstimate: ObjectEstimate): void {
     this.router.navigate([`/project/${this.projectIdSelect}/${objectEstimate.id}`]);
   }

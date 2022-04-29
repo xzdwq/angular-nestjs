@@ -1,9 +1,10 @@
 export interface Project {
-  id: string;
+  id: number;
+  guid: string;
   createDate?: Date;
   updateDate?: Date;
   sorting?: number;
   code: string;
   name: string;
-  nameEng?: string;
+  nameEn?: string;
 };

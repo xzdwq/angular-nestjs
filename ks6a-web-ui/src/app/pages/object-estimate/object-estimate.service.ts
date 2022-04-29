@@ -14,7 +14,7 @@ export class ObjectEstimateService {
   ) {}
 
   // Получаем объекты сметы для конкретного проекта
-  loadObjectEstimates (projectId: string): Observable<ObjectEstimate[]> {
+  loadObjectEstimates (projectId: number): Observable<ObjectEstimate[]> {
     this.loadMaskService.setLoad(true);
     return from(ajax.get(`/api/object-estimate/get-object-estimates?projectId=${projectId}`)
     .pipe(
@@ -24,7 +24,7 @@ export class ObjectEstimateService {
       }),
       catchError(error => {
         this.loadMaskService.setLoad(false);
-        return error;
+        throw new Error(error.status + ' - ' + error.request.url + ': ' + error.message);
       }),
     ));
   }

@@ -6,16 +6,29 @@ import { ProjectEntity, EstimateEntity } from '@src/orm';
   synchronize: true,
   schema: 'public',
   name: 'object_estimate',
+  orderBy: {
+    sorting: 'ASC',
+  },
 })
 export class ObjectEstimateEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({
+    type: 'uuid',
+    unique: true,
+    nullable: false,
+  })
+  guid: string;
 
   @Column({ length: 255 })
   name: string;
 
-  @Column({ length: 255 })
-  nameEng: string;
+  @Column({
+    name: 'name_en',
+    length: 255,
+  })
+  nameEn: string;
 
   @Column({
     length: 255,
@@ -30,15 +43,21 @@ export class ObjectEstimateEntity {
   @Column({ nullable: true })
   projectId: string;
   @ManyToOne(() => ProjectEntity, (rel) => rel.objectEstimates, { cascade: true })
-  @JoinColumn({ name: 'projectId' })
+  @JoinColumn({ name: 'project_id' })
   project: ProjectEntity;
 
   @OneToMany(() => EstimateEntity, (rel) => rel.objectEstimate)
   estimates: EstimateEntity[];
 
-  @CreateDateColumn({ type: 'timestamptz' })
+  @CreateDateColumn({
+    name: 'create_timestamp',
+    type: 'timestamp'
+  })
   createDate: Date;
 
-  @UpdateDateColumn({ type: 'timestamptz' })
+  @UpdateDateColumn({
+    name: 'update_timestamp',
+    type: 'timestamp'
+  })
   updateDate: Date;
 }

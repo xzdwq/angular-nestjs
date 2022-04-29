@@ -5,7 +5,9 @@
   </div>
   <div class="flex">
     <ng-select
-      class="w-16"
+      class="w-32"
+      bindValue="id"
+      bindLabel="label"
       [items]="getLangs()"
       [clearable]="false"
       [(ngModel)]="currentLang"
