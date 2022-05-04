@@ -16,7 +16,7 @@
     "concurrently": "^7.1.0",
     "pre-commit": "^1.2.2"
   },
-  "pre-commit": [
-    "lint"
-  ]
+  "simple-git-hooks": {
+    "pre-commit": "npm run lint"
+  }
 }

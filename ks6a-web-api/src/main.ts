@@ -9,7 +9,7 @@ const process = require('process');
 import logger from '@src/core/logger';
 import { AppModule } from '@src/app.module';
 
-async function run () {
+async function run ()  {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     bufferLogs: true,
   });
