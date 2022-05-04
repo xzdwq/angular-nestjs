@@ -31,7 +31,6 @@ module.exports = {
   },
   extends: [
     'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
   ],
   ignorePatterns: ['.eslintrc.js'],
 };

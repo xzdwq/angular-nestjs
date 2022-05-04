@@ -2,7 +2,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class Ks6aTestData1639553582937 implements MigrationInterface {
-  public async up(queryRunner: QueryRunner): Promise<void> {
+  public async up (queryRunner: QueryRunner): Promise<void> {
     // Первичная миграция
     await queryRunner.query(`
       -- Проекты
@@ -64,5 +64,5 @@ export class Ks6aTestData1639553582937 implements MigrationInterface {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  public async down(queryRunner: QueryRunner): Promise<void> {}
+  public async down (queryRunner: QueryRunner): Promise<void> {}
 }

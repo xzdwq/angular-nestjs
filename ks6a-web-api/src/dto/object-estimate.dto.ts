@@ -41,4 +41,4 @@ export class ObjectEstimate {
   @IsString()
   @MaxLength(1024)
   nameEng?: string;
-};
+}

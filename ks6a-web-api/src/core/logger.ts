@@ -8,6 +8,7 @@ const { SPLAT } = require('triple-beam');
 
 import configuration from '@cfg/configuration';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const config: any = configuration();
 
 const logger = createLogger({

@@ -37,4 +37,4 @@ export class Project {
   @IsString()
   @MaxLength(1024)
   nameEng?: string;
-};
+}

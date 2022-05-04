@@ -16,7 +16,7 @@ export class ProjectService {
 
   // Получаем проекты
   loadProjects (): Observable<Project[]> {
-    return this.http.get<Project[]>('/api/project/get-projects')
+    return this.http.get<Project[]>('/api/v1/project/get-projects')
       .pipe(
         map((res) => {
           if (!res.length)

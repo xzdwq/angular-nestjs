@@ -1,6 +1,6 @@
 <div class="flex items-center">
   <app-route-go #go (click)="go.routeGo('project/'+projectIdSelect)"></app-route-go>
-  <span *transloco="let t" class="pl-4 font-bold text-[color:var(--gray-150)]">{{ t('estimates') }}:</span>
+  <app-breadcrumb class="pl-2"></app-breadcrumb>
 </div>
 <app-message-mask [isShowMsg]="isShowMsg"></app-message-mask>
 

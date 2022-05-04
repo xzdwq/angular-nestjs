@@ -8,12 +8,12 @@ import { ProjectEntity } from '@src/orm';
 
 @Injectable()
 export class ProjectService {
-  constructor(
+  constructor (
     @InjectRepository(ProjectEntity)
-    private projectRepository: Repository<ProjectEntity>
+    private projectRepository: Repository<ProjectEntity>,
   ) {}
 
-  getProjects(): Observable<Project[]> {
+  getProjects (): Observable<Project[]> {
     return from(this.projectRepository.find());
   }
 }

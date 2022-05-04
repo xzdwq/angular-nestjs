@@ -8,12 +8,12 @@ import { ObjectEstimateEntity } from '@src/orm';
 
 @Injectable()
 export class ObjectEstimateService {
-  constructor(
+  constructor (
     @InjectRepository(ObjectEstimateEntity)
-    private objectEstimateRepository: Repository<ObjectEstimateEntity>
+    private objectEstimateRepository: Repository<ObjectEstimateEntity>,
   ) {}
 
-  getObjectEstimates(projectId: string): Observable<ObjectEstimate[]> {
+  getObjectEstimates (projectId: string): Observable<ObjectEstimate[]> {
     return from(this.objectEstimateRepository.find({ where: { projectId: projectId } }));
   }
 }

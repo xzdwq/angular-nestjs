@@ -6,6 +6,7 @@ import { EstimateComponent } from '@page/estimate/estimate.component';
 import { MessageMaskModule } from '@cmp/message-mask/message-mask.module';
 import { RouteGoModule } from '@cmp/route-go/route-go.module';
 import { HbfContentModule } from '@layout/hbf-content/hbf-content.module';
+import { BreadcrumbModule } from '@cmp/breadcrumb/breadcrumb.module';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { HbfContentModule } from '@layout/hbf-content/hbf-content.module';
     MessageMaskModule,
     RouteGoModule,
     HbfContentModule,
+    BreadcrumbModule,
   ],
   exports: [
     EstimateComponent,

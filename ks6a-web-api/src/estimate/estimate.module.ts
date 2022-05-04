@@ -9,7 +9,7 @@ import { EstimateEntity } from '@src/orm';
   imports: [
     TypeOrmModule.forFeature([
       EstimateEntity,
-    ])
+    ]),
   ],
   controllers: [ EstimateController ],
   providers: [ EstimateService ],

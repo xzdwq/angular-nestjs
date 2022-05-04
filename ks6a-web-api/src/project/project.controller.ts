@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Version } from '@nestjs/common';
 import { Observable } from 'rxjs';
 
 import { ProjectService } from '@src/project/project.service';
@@ -6,10 +6,11 @@ import { Project } from '@src/dto';
 
 @Controller('project')
 export class ProjectController {
-  constructor(private readonly projectService: ProjectService) {}
+  constructor (private readonly projectService: ProjectService) {}
 
+  @Version('1')
   @Get('get-projects')
-  getProjects(): Observable<Project[]> {
+  getProjects (): Observable<Project[]> {
     return this.projectService.getProjects();
   }
 }

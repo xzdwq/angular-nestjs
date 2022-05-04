@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as morgan from 'morgan';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -9,7 +9,8 @@ const process = require('process');
 import logger from '@src/core/logger';
 import { AppModule } from '@src/app.module';
 
-async function run() {
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+async function run () {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     bufferLogs: true,
   });
@@ -24,6 +25,11 @@ async function run() {
     api_global_prefix = config.get('api_global_prefix');
 
   app.setGlobalPrefix(api_global_prefix);
+
+  app.enableVersioning({
+    type: VersioningType.URI,
+  });
+
   app.enableCors({
     origin: [/^(.*)/],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -33,11 +39,12 @@ async function run() {
   });
 
   // Логирование HTTP запросов в зависимости от значения http_resolve_log
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   morgan.token('user', (req: any) => (req.user ? req.user.email : noauth_user_mask));
   morgan.format('combined', config.get('logger').morgan_format);
   app.use(
     morgan('combined', {
-      skip: (req, res) => res.statusCode >= 400,
+      skip: (req: never, res: { statusCode: number; }) => res.statusCode >= 400,
       stream: {
         write: (message: string) => {
           http_resolve_log ? logger.info(message) : null;
@@ -54,8 +61,8 @@ async function run() {
       `Server nest-api running on port ${PORT}. Application on url ${await app.getUrl()}. Process ID: ${
         process.pid
       }. MODE: ${MODE}`,
-      'NestApp',
+      'NestApplication',
     ),
   );
 }
-run();
+run ();

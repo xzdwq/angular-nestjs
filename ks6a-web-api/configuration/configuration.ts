@@ -1,6 +1,6 @@
 const MODE = process.env.NODE_ENV || 'production';
 
-export default (): any => ({
+export default (): unknown => ({
   mode: MODE,
   api_port: +process.env.API_PORT,
   api_global_prefix: 'api',

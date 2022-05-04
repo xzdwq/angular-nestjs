@@ -9,7 +9,7 @@ import { ProjectEntity } from '@src/orm';
   imports: [
     TypeOrmModule.forFeature([
       ProjectEntity,
-    ])
+    ]),
   ],
   controllers: [ ProjectController ],
   providers: [ ProjectService ],

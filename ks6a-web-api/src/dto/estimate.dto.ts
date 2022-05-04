@@ -46,4 +46,4 @@ export class Estimate {
   @IsString()
   @MaxLength(1024)
   localEstimateNumber: string;
-};
+}

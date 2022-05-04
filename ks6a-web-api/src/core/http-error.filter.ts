@@ -3,11 +3,12 @@ import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from
 import logger from '@src/core/logger';
 import configuration from '@cfg/configuration';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const config: any = configuration();
 
 @Catch()
 export class HttpErrorFilter implements ExceptionFilter {
-  catch(exception: HttpException, host: ArgumentsHost) {
+  catch (exception: HttpException, host: ArgumentsHost): unknown {
     const ctx = host.switchToHttp();
     const request = ctx.getRequest();
     const response = ctx.getResponse();
@@ -31,5 +32,6 @@ export class HttpErrorFilter implements ExceptionFilter {
     logger.error(`[${user}] ${request.method} ${request.url} ${status} - ${message}`, HttpErrorFilter.name);
 
     response.status(status).json(errorResponse);
+    return;
   }
 }

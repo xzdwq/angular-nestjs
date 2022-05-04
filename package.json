@@ -1,0 +1,22 @@
+{
+  "name": "ks6a",
+  "version": "0.0.0",
+  "workspaces": [
+    "./ks6a-web-api",
+    "./ks6a-web-ui"
+  ],
+  "scripts": {
+    "go": "concurrently \"npm:go -w ks6a-web-api\" \"npm:go -w ks6a-web-ui\"",
+    "lint": "concurrently \"npm:lint -w ks6a-web-api\" \"npm:lint -w ks6a-web-ui\"",
+    "lint-fix": "concurrently \"npm:lint-fix -w ks6a-web-api\" \"npm:lint-fix -w ks6a-web-ui\"",
+    "prettier-check": "concurrently \"npm:prettier-check -w ks6a-web-api\" \"npm:prettier-check -w ks6a-web-ui\".",
+    "prettier-fix": "concurrently \"npm:prettier-fix -w ks6a-web-api\" \"npm:prettier-fix -w ks6a-web-ui\""
+  },
+  "dependencies": {
+    "concurrently": "^7.1.0",
+    "pre-commit": "^1.2.2"
+  },
+  "pre-commit": [
+    "lint"
+  ]
+}

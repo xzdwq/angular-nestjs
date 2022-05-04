@@ -54,13 +54,13 @@ export class EstimateEntity {
 
   @CreateDateColumn({
     name: 'create_timestamp',
-    type: 'timestamp'
+    type: 'timestamp',
   })
   createDate: Date;
 
   @UpdateDateColumn({
     name: 'update_timestamp',
-    type: 'timestamp'
+    type: 'timestamp',
   })
   updateDate: Date;
 }
