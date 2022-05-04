@@ -9,7 +9,6 @@ const process = require('process');
 import logger from '@src/core/logger';
 import { AppModule } from '@src/app.module';
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 async function run () {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     bufferLogs: true,
