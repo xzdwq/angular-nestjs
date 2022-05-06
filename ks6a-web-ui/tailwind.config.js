@@ -1,3 +1,5 @@
+const plugin = require('tailwindcss/plugin');
+
 module.exports = {
   corePlugins: {
     preflight: false,
@@ -24,5 +26,9 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(({ addVariant }) => {
+      addVariant('not-first', 'li:not(:first-child)')
+    }),
+  ],
 };

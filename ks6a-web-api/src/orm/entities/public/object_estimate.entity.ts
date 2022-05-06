@@ -40,7 +40,10 @@ export class ObjectEstimateEntity {
   @Column()
   sorting: number;
 
-  @Column({ nullable: true })
+  @Column({
+    name: 'project_id',
+    nullable: true,
+  })
   projectId: string;
   @ManyToOne(() => ProjectEntity, (rel) => rel.objectEstimates, { cascade: true })
   @JoinColumn({ name: 'project_id' })

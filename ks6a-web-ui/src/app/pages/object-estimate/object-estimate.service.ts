@@ -17,12 +17,13 @@ export class ObjectEstimateService {
   ) {}
 
   // Получаем объекты сметы для конкретного проекта
-  loadObjectEstimates (projectId: number): Observable<ObjectEstimate[]> {
+  loadObjectEstimates (projectId: number, objectEstimateId = 0): Observable<ObjectEstimate[]> {
     this.loadMaskService.setLoad(true);
     return this.http.get<ObjectEstimate[]>('/api/v1/object-estimate/get-object-estimates',
       {
         params: {
           projectId: projectId,
+          objectEstimateId: objectEstimateId,
         },
       },
     )
@@ -33,6 +34,13 @@ export class ObjectEstimateService {
           this.loadMaskService.setLoad(false);
           return res;
         }),
+      );
+  }
+
+  getObjectEstimate (projectId: number, objectEstimateId: number): Observable<ObjectEstimate[]> {
+    return this.loadObjectEstimates(projectId, objectEstimateId)
+      .pipe(
+        map((objectEstimate) => objectEstimate),
       );
   }
 }
