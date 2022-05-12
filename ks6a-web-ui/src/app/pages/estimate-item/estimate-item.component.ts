@@ -18,7 +18,7 @@ export class EstimateItemComponent implements OnInit {
       .subscribe(params => {
         this.projectIdSelect = +params['projectId'];
         this.objectEstimateIdSelect = +params['objectEstimateId'];
-      }
+      },
     );
   }
 
