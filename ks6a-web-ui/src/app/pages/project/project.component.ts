@@ -22,7 +22,7 @@ export class ProjectComponent implements OnInit {
   ) {}
 
   ngOnInit (): void {
-    this.route?.firstChild?.params
+    this.route.firstChild?.params
       .subscribe(params => {
         this.projectId = +params['projectId'];
         this.objectEstimateId = +params['objectEstimateId'];

@@ -25,7 +25,7 @@ export class ObjectEstimate {
 
   @IsNotEmpty()
   @IsNumber()
-  projectId: string;
+  projectId: number;
 
   @IsNotEmpty()
   @IsString()

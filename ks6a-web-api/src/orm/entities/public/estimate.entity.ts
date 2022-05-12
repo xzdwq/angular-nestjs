@@ -38,6 +38,7 @@ export class EstimateEntity {
   code: string;
 
   @Column({
+    name: 'local_estimate_number',
     length: 1024,
     unique: true,
   })
@@ -46,8 +47,11 @@ export class EstimateEntity {
   @Column()
   sorting: number;
 
-  @Column({ nullable: true })
-  objectEstimateId: string;
+  @Column({
+    name: 'object_estimate_id',
+    nullable: true,
+  })
+  objectEstimateId: number;
   @ManyToOne(() => ObjectEstimateEntity, (rel) => rel.estimates, { cascade: true })
   @JoinColumn({ name: 'objectEstimateId' })
   objectEstimate: ObjectEstimateEntity;

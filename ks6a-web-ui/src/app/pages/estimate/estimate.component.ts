@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-// import { MessageMaskService } from '@cmp/message-mask/message-mask.service';
-import { ObjectEstimateService } from '@page/object-estimate/object-estimate.service';
 import { EstimateService } from '@page/estimate/estimate.service';
-import { Estimate, ObjectEstimate } from '@app/dto';
+import { Estimate } from '@app/dto';
 
 @Component({
   selector: 'app-estimate',
@@ -14,15 +12,12 @@ import { Estimate, ObjectEstimate } from '@app/dto';
 })
 export class EstimateComponent implements OnInit {
   public projectIdSelect!: number;
-  public objectEstimateNameSelect!: string;
   public objectEstimateId!: number;
   public estimates: Estimate[] = [];
   public isShowMsg: boolean = false;
   constructor (
     private route: ActivatedRoute,
     private router: Router,
-    // private messageMaskService: MessageMaskService,
-    private objectEstimateService: ObjectEstimateService,
     private estimateService: EstimateService,
   ) {}
 
@@ -31,11 +26,6 @@ export class EstimateComponent implements OnInit {
       .subscribe(params => {
         this.projectIdSelect = +params['projectId'];
         this.objectEstimateId = +params['objectEstimateId'];
-
-        this.objectEstimateService.getObjectEstimate(this.projectIdSelect, this.objectEstimateId)
-          .subscribe((objectEstimate: ObjectEstimate[]) => {
-            this.objectEstimateNameSelect = objectEstimate[0].code;
-          });
 
         this.estimateService.loadEstimates(this.objectEstimateId)
         .subscribe({

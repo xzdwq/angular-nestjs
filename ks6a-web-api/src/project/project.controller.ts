@@ -1,4 +1,4 @@
-import { Controller, Get, Version } from '@nestjs/common';
+import { Controller, Get, Query, Version } from '@nestjs/common';
 import { Observable } from 'rxjs';
 
 import { ProjectService } from '@src/project/project.service';
@@ -12,5 +12,13 @@ export class ProjectController {
   @Get('get-projects')
   getProjects (): Observable<Project[]> {
     return this.projectService.getProjects();
+  }
+
+  @Version('1')
+  @Get('get-project')
+  getProject (
+    @Query('projectId') projectId: number,
+  ): Observable<Project> {
+    return this.projectService.getProject(projectId);
   }
 }

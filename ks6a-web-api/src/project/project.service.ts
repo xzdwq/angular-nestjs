@@ -16,4 +16,8 @@ export class ProjectService {
   getProjects (): Observable<Project[]> {
     return from(this.projectRepository.find());
   }
+
+  getProject (projectId: number): Observable<Project> {
+    return from(this.projectRepository.findOne({ id: projectId }));
+  }
 }

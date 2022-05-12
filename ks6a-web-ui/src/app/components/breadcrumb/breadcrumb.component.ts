@@ -1,43 +1,24 @@
-import { Component, OnChanges, SimpleChanges } from '@angular/core';
-import { BreadcrumbStore } from '@cmp/breadcrumb/breadcrumb.store';
-import { BreadcrumbState, BreadcrumbItem } from '@cmp/breadcrumb/breadcrumcb.type';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { BreadcrumbService } from '@cmp/breadcrumb/breadcrumb.service';
+import { Breadcrumb } from '@cmp/breadcrumb/breadcrumcb.type';
 
 @Component({
   selector: 'app-breadcrumb',
   templateUrl: './breadcrumb.component.html',
-  inputs: ['link', 'label', 'level'],
   host: { class: 'flex' },
 })
-export class BreadcrumbComponent implements OnChanges {
-  crumbs$ = this.breadcrumbStore.crumbs$;
-  public link!: string;
-  public label!: string;
-  public level!: number;
-  constructor (
-    public breadcrumbStore: BreadcrumbStore,
-  ) {}
+export class BreadcrumbComponent implements OnInit {
+  breadcrumbs$: Observable<Breadcrumb[]>;
 
-  ngOnChanges (changes: SimpleChanges) {
-    const crumb = {
-      link: this.link,
-      label: changes['label'].currentValue,
-      level: this.level,
-    };
-    this.addCrumb(crumb);
+  constructor (
+    private readonly breadcrumbService: BreadcrumbService,
+  ) {
+    this.breadcrumbs$ = breadcrumbService.breadcrumbs$;
   }
 
-  addCrumb (crumb: BreadcrumbItem): void {
-    const crumbState: BreadcrumbItem[] = [];
-    this.breadcrumbStore.state$.forEach((i: BreadcrumbState) => {
-      if (i.crumbs) {
-        i.crumbs.forEach((c: BreadcrumbItem) => {
-          if (c.level < crumb.level) crumbState.push(c)
-        });
-      }
-    });
-    this.breadcrumbStore.patchState(() => ({
-      crumbs: [...crumbState, crumb],
-    }));
+  ngOnInit () {
   }
 
 }

@@ -10,6 +10,7 @@ import { TranslocoRootModule } from '@app/transloco-root.module';
 import { AppComponent } from '@app/app.component';
 import { ToolBarModule } from '@cmp/tool-bar/tool-bar.module';
 import { ProjectModule } from '@page/project/project.module';
+// import { BreadcrumbModule } from '@cmp/breadcrumb/breadcrumb.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +23,7 @@ import { ProjectModule } from '@page/project/project.module';
     ProjectModule,
     FormsModule,
     BrowserAnimationsModule,
+    // BreadcrumbModule,
   ],
   providers: [
     {

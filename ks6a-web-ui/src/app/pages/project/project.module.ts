@@ -8,6 +8,7 @@ import { MessageMaskModule } from '@cmp/message-mask/message-mask.module';
 import { LoadMaskModule } from '@cmp/load-mask/load-mask.module';
 import { ObjectEstimateModule } from '@page/object-estimate/object-estimate.module';
 import { EstimateModule } from '@page/estimate/estimate.module';
+import { EstimateItemModule } from '@page/estimate-item/estimate-item.module';
 import { TabPanelModule } from '@cmp/tab-panel/tab-panel.module';
 
 @NgModule({
@@ -21,6 +22,7 @@ import { TabPanelModule } from '@cmp/tab-panel/tab-panel.module';
     TabPanelModule,
     ObjectEstimateModule,
     EstimateModule,
+    EstimateItemModule,
   ],
   exports: [ProjectComponent],
   providers: [],

@@ -1,11 +1,6 @@
 <div class="flex items-center">
   <app-route-go #go (click)="go.routeGo('project/'+projectIdSelect)"></app-route-go>
-  <app-breadcrumb
-    class="pl-2"
-    [link]="'../../'+projectIdSelect"
-    [label]="objectEstimateNameSelect"
-    [level]="2"
-  ></app-breadcrumb>
+  <app-breadcrumb class="pl-2"></app-breadcrumb>
 </div>
 <app-message-mask [isShowMsg]="isShowMsg"></app-message-mask>
 

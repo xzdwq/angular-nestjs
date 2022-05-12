@@ -25,7 +25,7 @@ export class Estimate {
 
   @IsNotEmpty()
   @IsNumber()
-  objectEstimateId: string;
+  objectEstimateId: number;
 
   @IsNotEmpty()
   @IsString()

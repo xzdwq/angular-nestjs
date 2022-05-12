@@ -1,11 +1,6 @@
-interface BreadcrumbItem {
-  link: string;
+interface Breadcrumb {
   label: string;
-  level: number;
+  url: string;
 }
 
-interface BreadcrumbState {
-  crumbs: BreadcrumbItem[];
-}
-
-export { BreadcrumbItem, BreadcrumbState }
+export { Breadcrumb }

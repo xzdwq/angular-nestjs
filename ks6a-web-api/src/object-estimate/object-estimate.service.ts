@@ -17,9 +17,9 @@ export class ObjectEstimateService {
     let qb: SelectQueryBuilder<ObjectEstimateEntity>;
     qb = this.objectEstimateRepository
       .createQueryBuilder('object_estimate')
-      .where('object_estimate.project_id = :project_id', { project_id: projectId });
-    if (objectEstimateId) {
-      qb = qb.andWhere('object_estimate.id = :object_estimate_id', { object_estimate_id: objectEstimateId });
+      .where('object_estimate.project_id = :projectId', { projectId: projectId });
+    if (+objectEstimateId) {
+      qb = qb.andWhere('object_estimate.id = :objectEstimateId', { objectEstimateId: objectEstimateId });
     }
     return from(qb.getMany());
   }

@@ -5,6 +5,7 @@ import { map, Observable } from 'rxjs';
 import { ObjectEstimate } from '@app/dto';
 import { LoadMaskService } from '@cmp/load-mask/load-mask.service';
 import { MessageMaskService } from '@cmp/message-mask/message-mask.service';
+import { ActivatedRouteSnapshot } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -42,5 +43,11 @@ export class ObjectEstimateService {
       .pipe(
         map((objectEstimate) => objectEstimate),
       );
+  }
+
+  resolve (route: ActivatedRouteSnapshot): Observable<ObjectEstimate[]> {
+    const projectId = +route.params['projectId'];
+    const objectEstimateId = +route.params['objectEstimateId'] || 0;
+    return this.getObjectEstimate(projectId, objectEstimateId);
   }
 }

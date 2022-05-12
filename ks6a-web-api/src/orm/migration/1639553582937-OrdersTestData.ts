@@ -5,6 +5,9 @@ export class Ks6aTestData1639553582937 implements MigrationInterface {
   public async up (queryRunner: QueryRunner): Promise<void> {
     // Первичная миграция
     await queryRunner.query(`
+      -- Установка раширения генерации uuid (если нет в БД)
+      CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
       -- Проекты
       INSERT INTO public.project ("guid", "name", "name_eng", "code", "sorting") VALUES
         (uuid_generate_v4(), 'Блок №1', 'Block #1', 'bloсk1', 1),
@@ -13,7 +16,7 @@ export class Ks6aTestData1639553582937 implements MigrationInterface {
         (uuid_generate_v4(), 'Блок №4', 'Block #4', 'bloсk4', 4);
 
       -- Объекты смет
-      INSERT INTO public.object_estimate ("guid", "name", "name_eng", "code", "sorting", "projectId") VALUES
+      INSERT INTO public.object_estimate ("guid", "name", "name_eng", "code", "sorting", "project_id") VALUES
         (uuid_generate_v4(), 'Работа №1', 'Work #1', '01-01', 1,
           (
             SELECT id FROM public.project
@@ -40,7 +43,7 @@ export class Ks6aTestData1639553582937 implements MigrationInterface {
         );
 
         -- Сметы
-        INSERT INTO public.estimate ("guid", "name", "name_eng", "code", "sorting", "localEstimateNumber", "objectEstimateId") VALUES
+        INSERT INTO public.estimate ("guid", "name", "name_eng", "code", "sorting", "local_estimate_number", "object_estimate_id") VALUES
           (uuid_generate_v4(), 'Устройство работы', 'Work', 'work', 1, '54-аа-33',
             (
               SELECT id FROM public.object_estimate
