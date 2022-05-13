@@ -7,14 +7,18 @@ import { TranslocoRootModule } from '@app/transloco-root.module';
 import { ToolBarComponent } from '@cmp/tool-bar/tool-bar.component';
 
 @NgModule({
-  declarations: [ToolBarComponent],
+  declarations: [
+    ToolBarComponent,
+  ],
   imports: [
     CommonModule,
     TranslocoRootModule,
     NgSelectModule,
     FormsModule,
   ],
-  exports: [ToolBarComponent],
+  exports: [
+    ToolBarComponent,
+  ],
   providers: [],
 })
 export class ToolBarModule {}

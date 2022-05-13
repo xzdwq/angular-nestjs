@@ -18,13 +18,12 @@ export class ObjectEstimateService {
   ) {}
 
   // Получаем объекты сметы для конкретного проекта
-  loadObjectEstimates (projectId: number, objectEstimateId = 0): Observable<ObjectEstimate[]> {
+  fetchObjectEstimates (projectId: number): Observable<ObjectEstimate[]> {
     this.loadMaskService.setLoad(true);
     return this.http.get<ObjectEstimate[]>('/api/v1/object-estimate/get-object-estimates',
       {
         params: {
           projectId: projectId,
-          objectEstimateId: objectEstimateId,
         },
       },
     )
@@ -38,16 +37,18 @@ export class ObjectEstimateService {
       );
   }
 
-  getObjectEstimate (projectId: number, objectEstimateId: number): Observable<ObjectEstimate[]> {
-    return this.loadObjectEstimates(projectId, objectEstimateId)
-      .pipe(
-        map((objectEstimate) => objectEstimate),
-      );
+  fetchObjectEstimate (objectEstimateId: number): Observable<ObjectEstimate> {
+    return this.http.get<ObjectEstimate>('/api/v1/object-estimate/get-object-estimate',
+      {
+        params: {
+          objectEstimateId: objectEstimateId,
+        },
+      },
+    );
   }
 
-  resolve (route: ActivatedRouteSnapshot): Observable<ObjectEstimate[]> {
-    const projectId = +route.params['projectId'];
-    const objectEstimateId = +route.params['objectEstimateId'] || 0;
-    return this.getObjectEstimate(projectId, objectEstimateId);
+  resolve (route: ActivatedRouteSnapshot): Observable<ObjectEstimate> {
+    const objectEstimateId = +route.params['objectEstimateId'];
+    return this.fetchObjectEstimate(objectEstimateId);
   }
 }

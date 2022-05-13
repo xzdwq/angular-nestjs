@@ -10,9 +10,12 @@ import { ObjectEstimateModule } from '@page/object-estimate/object-estimate.modu
 import { EstimateModule } from '@page/estimate/estimate.module';
 import { EstimateItemModule } from '@page/estimate-item/estimate-item.module';
 import { TabPanelModule } from '@cmp/tab-panel/tab-panel.module';
+import { BreadcrumbModule } from '@cmp/breadcrumb/breadcrumb.module';
 
 @NgModule({
-  declarations: [ProjectComponent],
+  declarations: [
+    ProjectComponent,
+  ],
   imports: [
     AppRoutingModule,
     CommonModule,
@@ -20,11 +23,14 @@ import { TabPanelModule } from '@cmp/tab-panel/tab-panel.module';
     MessageMaskModule,
     LoadMaskModule,
     TabPanelModule,
+    BreadcrumbModule,
     ObjectEstimateModule,
     EstimateModule,
     EstimateItemModule,
   ],
-  exports: [ProjectComponent],
+  exports: [
+    ProjectComponent,
+  ],
   providers: [],
 })
 export class ProjectModule {}

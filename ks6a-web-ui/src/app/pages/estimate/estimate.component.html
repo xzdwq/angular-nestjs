@@ -1,11 +1,7 @@
-<div class="flex items-center">
-  <app-route-go #go (click)="go.routeGo('project/'+projectIdSelect)"></app-route-go>
-  <app-breadcrumb class="pl-2"></app-breadcrumb>
-</div>
 <app-message-mask [isShowMsg]="isShowMsg"></app-message-mask>
-
+<router-outlet (activate)='componentShow = true' (deactivate)='componentShow = false'></router-outlet>
 <!-- Список смет для конкретного объекта сметы -->
-<app-hbf-content *ngIf="estimates.length">
+<app-hbf-content *ngIf="estimates.length && !componentShow">
   <!-- Header -->
   <ng-template #headerTpl>
     <tr *transloco="let t">

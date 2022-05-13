@@ -6,12 +6,16 @@ import { MessageMaskComponent } from '@cmp/message-mask/message-mask.component';
 import { MessageMaskService } from '@cmp/message-mask/message-mask.service';
 
 @NgModule({
-  declarations: [MessageMaskComponent],
+  declarations: [
+    MessageMaskComponent,
+  ],
   imports: [
     CommonModule,
     TranslocoRootModule,
   ],
-  exports: [MessageMaskComponent],
+  exports: [
+    MessageMaskComponent,
+  ],
   providers: [
     MessageMaskService,
   ],

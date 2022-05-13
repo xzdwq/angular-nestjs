@@ -11,7 +11,11 @@ import { ObjectEstimateEntity } from '@src/orm';
       ObjectEstimateEntity,
     ]),
   ],
-  controllers: [ ObjectEstimateController ],
-  providers: [ ObjectEstimateService ],
+  controllers: [
+    ObjectEstimateController,
+  ],
+  providers: [
+    ObjectEstimateService,
+  ],
 })
 export class ObjectEstimateModule {}

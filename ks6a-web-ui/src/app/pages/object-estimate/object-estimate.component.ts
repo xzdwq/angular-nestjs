@@ -13,6 +13,7 @@ export class ObjectEstimateComponent implements OnInit {
   public projectIdSelect!: number;
   public objectEstimates: ObjectEstimate[] = [];
   public isShowMsg: boolean = false;
+  public componentShow: boolean = false;
   constructor (
     private route: ActivatedRoute,
     private router: Router,
@@ -21,8 +22,8 @@ export class ObjectEstimateComponent implements OnInit {
 
   ngOnInit (): void {
     this.route.params.subscribe(params => {
-      this.projectIdSelect = params['projectId'];
-      this.objectEstimateService.loadObjectEstimates(this.projectIdSelect)
+      this.projectIdSelect = +params['projectId'];
+      this.objectEstimateService.fetchObjectEstimates(this.projectIdSelect)
         .subscribe({
           next: (objectEstimates) => {
             this.objectEstimates = objectEstimates;
@@ -35,7 +36,7 @@ export class ObjectEstimateComponent implements OnInit {
 
   // Выбор конкретного объекта сметы из проекта
   handlerObjectEstimate (objectEstimate: ObjectEstimate): void {
-    this.router.navigate([`/project/${this.projectIdSelect}/${objectEstimate.id}`]);
+    this.router.navigate([`${objectEstimate.id}`], { relativeTo: this.route });
   }
 
 }

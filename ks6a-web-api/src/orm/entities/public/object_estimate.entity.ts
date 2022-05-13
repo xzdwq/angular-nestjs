@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, OneToMany, BeforeUpdate } from "typeorm";
 
 import { ProjectEntity, EstimateEntity } from '@src/orm';
 
@@ -63,4 +63,10 @@ export class ObjectEstimateEntity {
     type: 'timestamp',
   })
   updateDate: Date;
+
+  
+  @BeforeUpdate()
+  updateTimestamp (): void {
+    this.updateDate = new Date;
+  }
 }

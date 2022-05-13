@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { TranslocoRootModule } from '@app/transloco-root.module';
 import { EstimateItemComponent } from '@page/estimate-item/estimate-item.component';
-import { RouteGoModule } from '@cmp/route-go/route-go.module';
+import { MessageMaskModule } from '@cmp/message-mask/message-mask.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +12,7 @@ import { RouteGoModule } from '@cmp/route-go/route-go.module';
   imports: [
     CommonModule,
     TranslocoRootModule,
-    RouteGoModule,
+    MessageMaskModule,
   ],
   exports: [],
   providers: [],

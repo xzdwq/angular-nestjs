@@ -15,7 +15,7 @@ export class ProjectService {
   ) {}
 
   // Получаем проекты
-  loadProjects (): Observable<Project[]> {
+  fetchProjects (): Observable<Project[]> {
     return this.http.get<Project[]>('/api/v1/project/get-projects')
       .pipe(
         map((res) => {
@@ -26,7 +26,7 @@ export class ProjectService {
       );
   }
 
-  getProject (projectId: number): Observable<Project> {
+  fetchProject (projectId: number): Observable<Project> {
     return this.http.get<Project>('/api/v1/project/get-project',
       {
         params: {
@@ -38,6 +38,6 @@ export class ProjectService {
 
   resolve (route: ActivatedRouteSnapshot): Observable<Project> {
     const projectId = +route.params['projectId'];
-    return this.getProject(projectId);
+    return this.fetchProject(projectId);
   }
 }

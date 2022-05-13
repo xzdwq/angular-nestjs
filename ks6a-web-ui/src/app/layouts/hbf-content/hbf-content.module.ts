@@ -6,7 +6,9 @@ import { HbfContentComponent } from '@layout/hbf-content/hbf-content.component';
 
 
 @NgModule({
-  declarations: [HbfContentComponent],
+  declarations: [
+    HbfContentComponent,
+  ],
   imports: [
     CommonModule,
   ],

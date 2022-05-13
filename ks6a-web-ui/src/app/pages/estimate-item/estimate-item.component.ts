@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 export class EstimateItemComponent implements OnInit {
   public projectIdSelect!: number;
   public objectEstimateIdSelect!: number;
+  public isShowMsg: boolean = false;
   constructor (
     private route: ActivatedRoute,
   ) {}

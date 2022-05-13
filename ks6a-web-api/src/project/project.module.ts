@@ -11,7 +11,11 @@ import { ProjectEntity } from '@src/orm';
       ProjectEntity,
     ]),
   ],
-  controllers: [ ProjectController ],
-  providers: [ ProjectService ],
+  controllers: [
+    ProjectController,
+  ],
+  providers: [
+    ProjectService,
+  ],
 })
 export class ProjectModule {}

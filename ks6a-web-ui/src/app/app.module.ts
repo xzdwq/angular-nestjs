@@ -10,10 +10,11 @@ import { TranslocoRootModule } from '@app/transloco-root.module';
 import { AppComponent } from '@app/app.component';
 import { ToolBarModule } from '@cmp/tool-bar/tool-bar.module';
 import { ProjectModule } from '@page/project/project.module';
-// import { BreadcrumbModule } from '@cmp/breadcrumb/breadcrumb.module';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -23,7 +24,6 @@ import { ProjectModule } from '@page/project/project.module';
     ProjectModule,
     FormsModule,
     BrowserAnimationsModule,
-    // BreadcrumbModule,
   ],
   providers: [
     {
@@ -32,7 +32,9 @@ import { ProjectModule } from '@page/project/project.module';
       multi: true,
     },
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [
+    AppComponent,
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
 export class AppModule {}

@@ -25,7 +25,9 @@ let lang = 'ru';
   : lang = localStorage.getItem('lang') || lang;
 
 @NgModule({
-  exports: [TranslocoModule],
+  exports: [
+    TranslocoModule,
+  ],
   providers: [
     {
       provide: TRANSLOCO_CONFIG,

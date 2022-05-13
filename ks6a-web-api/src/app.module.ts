@@ -42,7 +42,9 @@ import { EstimateModule } from '@src/estimate/estimate.module';
     ObjectEstimateModule,
     EstimateModule,
   ],
-  controllers: [AppController],
+  controllers: [
+    AppController,
+  ],
   providers: [
     AppService,
     {

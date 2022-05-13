@@ -15,6 +15,7 @@ export class EstimateComponent implements OnInit {
   public objectEstimateId!: number;
   public estimates: Estimate[] = [];
   public isShowMsg: boolean = false;
+  public componentShow: boolean = false;
   constructor (
     private route: ActivatedRoute,
     private router: Router,
@@ -27,7 +28,7 @@ export class EstimateComponent implements OnInit {
         this.projectIdSelect = +params['projectId'];
         this.objectEstimateId = +params['objectEstimateId'];
 
-        this.estimateService.loadEstimates(this.objectEstimateId)
+        this.estimateService.fetchEstimates(this.objectEstimateId)
         .subscribe({
           next: (estimates) => {
             this.estimates = estimates;
@@ -40,7 +41,7 @@ export class EstimateComponent implements OnInit {
 
   // Выбор конкретной сметы из оъекта сметы
   handlerEstimate (estimate: Estimate): void {
-    this.router.navigate([`/project/${this.projectIdSelect}/${this.objectEstimateId}/${estimate.id}`]);
+    this.router.navigate([`${estimate.id}`], { relativeTo: this.route });
   }
 
 }
