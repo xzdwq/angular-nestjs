@@ -1,7 +1,7 @@
 <app-message-mask [isShowMsg]="isShowMsg"></app-message-mask>
 <router-outlet (activate)='componentShow = true' (deactivate)='componentShow = false'></router-outlet>
 <!-- Список смет для конкретного объекта сметы -->
-<app-hbf-content *ngIf="estimates.length && !componentShow">
+<app-hbf-content *ngIf="estimates.length && !componentShow" [resizeTable]="true">
   <!-- Header -->
   <ng-template #headerTpl>
     <tr *transloco="let t">

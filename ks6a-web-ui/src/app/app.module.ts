@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { HttpErrorInterceptor } from '@app/core/http-error.filter';
+import { HttpErrorInterceptor } from '@app/core/http/http-error.filter';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { TranslocoRootModule } from '@app/transloco-root.module';
 import { AppComponent } from '@app/app.component';

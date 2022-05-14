@@ -1,5 +1,5 @@
 <div class="flex-1 overflow-auto">
-  <table class="w-full border-collapse text-base">
+  <table resizeColumn [isResize]="resizeTable" [fixed]="columnFixed" class="w-full border-collapse text-base">
     <!-- Header -->
     <thead class="top-0 sticky bg-[color:var(--primary-25)]">
       <ng-container *ngTemplateOutlet="headerTpl"></ng-container>

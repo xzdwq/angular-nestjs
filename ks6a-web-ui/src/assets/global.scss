@@ -32,6 +32,19 @@ button {
   @apply border-none m-0 decoration-0 cursor-pointer font-base rounded inline-flex items-center text-base;
 }
 
+table .resize-handle {
+  position: absolute;
+  cursor: e-resize;
+  width: 5px;
+  right: -1px;
+  top: 0;
+  height: 100%;
+  &:hover {
+    transition-duration: 200ms;
+    background-color: #8dbef5;
+  }
+}
+
 thead th {
   height: 40px;
   border-right: 1px solid var(--gray-25);
