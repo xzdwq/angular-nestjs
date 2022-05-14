@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-estimate-item',
-  templateUrl: './estimate-item.component.html',
+  selector: 'app-ks6a-item',
+  templateUrl: './ks6a-item.component.html',
   host: { class: 'h-full flex flex-col' },
 })
-export class EstimateItemComponent implements OnInit {
+export class Ks6aItemComponent implements OnInit {
   public projectIdSelect!: number;
   public objectEstimateIdSelect!: number;
   public isShowMsg: boolean = false;

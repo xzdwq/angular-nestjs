@@ -62,6 +62,10 @@ export class Ks6aTestData1639553582937 implements MigrationInterface {
               WHERE id = 3
             )
           );
+
+          -- Кс6а
+          INSERT INTO public.ks6a_item ("guid", "ks6a_journal_id", "group_name", "number", "wbs_code", "cbs_code_i", "cbs_code_ii", "work_type", "rate_number", "unit", "value") VALUES
+            (uuid_generate_v4(), 1, 'Раздел 1. Подземная часть', 1, 'AAA.RT.89', '1.1.2.3', '1.2.3.3', 'Устройство бетонной подготовки', '06-01-434', '100 м3', 2.89),
     `);
   }
 

@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { TranslocoRootModule } from '@app/transloco-root.module';
-import { EstimateItemComponent } from '@page/estimate-item/estimate-item.component';
+import { Ks6aItemComponent } from '@page/ks6a-item/ks6a-item.component';
 import { MessageMaskModule } from '@cmp/message-mask/message-mask.module';
 
 @NgModule({
   declarations: [
-    EstimateItemComponent,
+    Ks6aItemComponent,
   ],
   imports: [
     CommonModule,
@@ -17,4 +17,4 @@ import { MessageMaskModule } from '@cmp/message-mask/message-mask.module';
   exports: [],
   providers: [],
 })
-export class EstimateItemModule {}
+export class Ks6aItemModule {}

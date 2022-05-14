@@ -8,7 +8,7 @@ import { MessageMaskModule } from '@cmp/message-mask/message-mask.module';
 import { LoadMaskModule } from '@cmp/load-mask/load-mask.module';
 import { ObjectEstimateModule } from '@page/object-estimate/object-estimate.module';
 import { EstimateModule } from '@page/estimate/estimate.module';
-import { EstimateItemModule } from '@page/estimate-item/estimate-item.module';
+import { Ks6aItemModule } from '@page/ks6a-item/ks6a-item.module';
 import { TabPanelModule } from '@cmp/tab-panel/tab-panel.module';
 import { BreadcrumbModule } from '@cmp/breadcrumb/breadcrumb.module';
 
@@ -26,7 +26,7 @@ import { BreadcrumbModule } from '@cmp/breadcrumb/breadcrumb.module';
     BreadcrumbModule,
     ObjectEstimateModule,
     EstimateModule,
-    EstimateItemModule,
+    Ks6aItemModule,
   ],
   exports: [
     ProjectComponent,

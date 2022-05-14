@@ -53,7 +53,7 @@ export class EstimateEntity {
   })
   objectEstimateId: number;
   @ManyToOne(() => ObjectEstimateEntity, (rel) => rel.estimates, { cascade: true })
-  @JoinColumn({ name: 'objectEstimateId' })
+  @JoinColumn({ name: 'object_estimate_id' })
   objectEstimate: ObjectEstimateEntity;
 
   @CreateDateColumn({

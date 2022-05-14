@@ -4,7 +4,7 @@ import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { ProjectComponent } from '@page/project/project.component';
 import { ObjectEstimateComponent } from '@page/object-estimate/object-estimate.component';
 import { EstimateComponent } from '@page/estimate/estimate.component';
-import { EstimateItemComponent } from '@page/estimate-item/estimate-item.component';
+import { Ks6aItemComponent } from '@page/ks6a-item/ks6a-item.component';
 import { ProjectService } from '@page/project/project.service';
 import { ObjectEstimateService } from '@page/object-estimate/object-estimate.service';
 import { EstimateService } from '@page/estimate/estimate.service';
@@ -30,7 +30,7 @@ const routes: Routes = [
             children: [
               {
                 path: ':estimateId',
-                component: EstimateItemComponent,
+                component: Ks6aItemComponent,
                 data: { breadcrumb: (data: { response: ObjectEstimate }) => `${data.response.code}` },
                 resolve: { response: EstimateService },
               },
