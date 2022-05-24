@@ -13,11 +13,11 @@ export class ProjectService {
     private projectRepository: Repository<ProjectEntity>,
   ) {}
 
-  getProjects (): Observable<Project[]> {
+  fetchProjects (): Observable<Project[]> {
     return from(this.projectRepository.find());
   }
 
-  getProject (projectId: number): Observable<Project> {
+  fetchProject (projectId: number): Observable<Project> {
     return from(this.projectRepository.findOne({ id: projectId }));
   }
 }

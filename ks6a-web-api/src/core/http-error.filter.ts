@@ -13,12 +13,14 @@ export class HttpErrorFilter implements ExceptionFilter {
     const request = ctx.getRequest();
     const response = ctx.getResponse();
     const status = exception.getStatus ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
-    const message = exception.getResponse()['message'] || exception.message || exception.getResponse();
+    const message = typeof exception.getResponse === 'function'
+      ? exception.getResponse()['message']
+      : exception.message || exception.getResponse();
 
     const errorResponse = {
       success: false,
       code: status,
-      error: exception.getResponse()['error'],
+      error: typeof exception.getResponse === 'function' ? exception.getResponse()['error'] : exception.message,
       timestamp: new Date().toLocaleTimeString('ru', {
         day: 'numeric',
         month: 'numeric',

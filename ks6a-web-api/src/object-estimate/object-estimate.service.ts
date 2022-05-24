@@ -13,11 +13,11 @@ export class ObjectEstimateService {
     private objectEstimateRepository: Repository<ObjectEstimateEntity>,
   ) {}
 
-  getObjectEstimates (projectId: number): Observable<ObjectEstimate[]> {
+  fetchObjectEstimates (projectId: number): Observable<ObjectEstimate[]> {
     return from(this.objectEstimateRepository.find({ projectId: projectId }));
   }
 
-  getObjectEstimate (objectEstimateId: number): Observable<ObjectEstimate> {
+  fetchObjectEstimate (objectEstimateId: number): Observable<ObjectEstimate> {
     return from(this.objectEstimateRepository.findOne({ id: objectEstimateId }));
   }
 }

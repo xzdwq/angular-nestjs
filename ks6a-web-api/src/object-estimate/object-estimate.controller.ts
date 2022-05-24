@@ -10,17 +10,17 @@ export class ObjectEstimateController {
 
   @Version('1')
   @Get('get-object-estimates')
-  getObjectEstimates (
+  fetchObjectEstimates (
     @Query('projectId') projectId: number,
   ): Observable<ObjectEstimate[]> {
-    return this.objectEstimateService.getObjectEstimates(projectId);
+    return this.objectEstimateService.fetchObjectEstimates(projectId);
   }
 
   @Version('1')
   @Get('get-object-estimate')
-  getObjectEstimate (
+  fetchObjectEstimate (
     @Query('objectEstimateId') objectEstimateId: number,
   ): Observable<ObjectEstimate> {
-    return this.objectEstimateService.getObjectEstimate(objectEstimateId);
+    return this.objectEstimateService.fetchObjectEstimate(objectEstimateId);
   }
 }

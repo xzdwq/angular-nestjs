@@ -11,6 +11,7 @@ import { entities } from '@src/orm';
 import { ProjectModule } from '@src/project/project.module';
 import { ObjectEstimateModule } from '@src/object-estimate/object-estimate.module';
 import { EstimateModule } from '@src/estimate/estimate.module';
+import { Ks6aItemModule } from '@src/ks6a-item/ks6a-item.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { EstimateModule } from '@src/estimate/estimate.module';
     ProjectModule,
     ObjectEstimateModule,
     EstimateModule,
+    Ks6aItemModule,
   ],
   controllers: [
     AppController,

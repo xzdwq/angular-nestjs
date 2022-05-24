@@ -15,5 +15,21 @@
   "kks": "ККС",
   "local-estimate-number": "Номер локальной сметы",
   "name": "Наименование",
-  "estimates": "Сметы"
+  "estimates": "Сметы",
+  "number": "Номер",
+  "item_no": "Номер п/п",
+  "estimate_position": "Позиция по смете",
+  "wbs_code": "Код WBS",
+  "cbs_code": "Код CBS {{ volume }}",
+  "work_type": "Конструктивные виды и элементы работ",
+  "rate_number": "Номер единичной расценки",
+  "unit_measure": "Единица измерения",
+  "volume_work_estimate": "Количество работ по смете",
+  "estimate_cost": "Сметная (договорная) стоимость, руб.",
+  "ks6a_execute": "КС-6а выполнение",
+  "ks6a_close": "Закрыто по КС-6а",
+  "ks2_customer": "КС-2 заказчика",
+  "ks6a_balance": "Остаток по КС-6а",
+  "ks2_balance": "Остаток по КС-2",
+  "total_all_periods": "Итоги за все периоды"
 }

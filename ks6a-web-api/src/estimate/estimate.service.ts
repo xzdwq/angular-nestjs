@@ -13,11 +13,11 @@ export class EstimateService {
     private estimateRepository: Repository<EstimateEntity>,
   ) {}
 
-  getEstimates (objectEstimateId: number): Observable<Estimate[]> {
+  fetchEstimates (objectEstimateId: number): Observable<Estimate[]> {
     return from(this.estimateRepository.find({ objectEstimateId: objectEstimateId }));
   }
 
-  getEstimate ( estimateId: number): Observable<Estimate> {
+  fetchEstimate (estimateId: number): Observable<Estimate> {
     return from(this.estimateRepository.findOne({ id: estimateId}));
   }
 }

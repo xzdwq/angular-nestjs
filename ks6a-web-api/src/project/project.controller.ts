@@ -10,15 +10,15 @@ export class ProjectController {
 
   @Version('1')
   @Get('get-projects')
-  getProjects (): Observable<Project[]> {
-    return this.projectService.getProjects();
+  fetchProjects (): Observable<Project[]> {
+    return this.projectService.fetchProjects();
   }
 
   @Version('1')
   @Get('get-project')
-  getProject (
+  fetchProject (
     @Query('projectId') projectId: number,
   ): Observable<Project> {
-    return this.projectService.getProject(projectId);
+    return this.projectService.fetchProject(projectId);
   }
 }

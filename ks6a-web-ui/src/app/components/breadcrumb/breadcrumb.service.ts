@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Data, Event, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, Data, Event, NavigationEnd, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { TranslocoService } from '@ngneat/transloco';
 
 import { Breadcrumb } from '@cmp/breadcrumb/breadcrumcb.type';
 
@@ -8,18 +9,25 @@ import { Breadcrumb } from '@cmp/breadcrumb/breadcrumcb.type';
   providedIn: 'root',
 })
 export class BreadcrumbService {
-  private readonly _breadcrumbs$ = new BehaviorSubject<Breadcrumb[]>([]);
+  private _breadcrumbs$ = new BehaviorSubject<Breadcrumb[]>([]);
   readonly breadcrumbs$ = this._breadcrumbs$.asObservable();
+  private currentLang!: string;
   constructor (
     private router: Router,
+    private translocoService: TranslocoService,
   ) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
-        const root = this.router.routerState.snapshot.root;
-        const breadcrumbs: Breadcrumb[] = [];
+        const { root, breadcrumbs } = this.getDefaultRouteData();
         this.addBreadcrumb(root, [], breadcrumbs);
         this._breadcrumbs$.next(breadcrumbs);
       }
+    });
+    this.translocoService.langChanges$.subscribe(() => {
+      this.currentLang = this.translocoService.getActiveLang();
+      const { root, breadcrumbs } = this.getDefaultRouteData();
+      this.addBreadcrumb(root, [], breadcrumbs);
+      this._breadcrumbs$.next(breadcrumbs);
     });
   }
 
@@ -40,6 +48,15 @@ export class BreadcrumbService {
   }
 
   private getLabel (data: Data) {
-    return typeof data['breadcrumb'] === 'function' ? data['breadcrumb'](data) : data['breadcrumb'];
+    return typeof data['breadcrumb'] === 'function'
+      ? (data['langProp'] ? data['breadcrumb'](data)[data['langProp'][this.currentLang]] : data['breadcrumb'](data))
+      : data['breadcrumb'];
+  }
+
+  private getDefaultRouteData (): { root: ActivatedRouteSnapshot, breadcrumbs: [] } {
+    return {
+      root: this.router.routerState.snapshot.root,
+      breadcrumbs: [],
+    }
   }
 }

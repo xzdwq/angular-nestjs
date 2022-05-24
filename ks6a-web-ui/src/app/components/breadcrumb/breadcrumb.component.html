@@ -1,15 +1,19 @@
-<nav class="flex py-1 pl-2" aria-label="breadcrumb">
+<nav class="flex py-1" aria-label="breadcrumb">
   <ol class="not-first:pl-2 inline-flex items-center space-x-1">
     <li
-      *ngFor="let breadcrumb of (breadcrumbs$ | async)"
-      class="inline-flex items-center text-[color:var(--primary-150)] hover:text-[color:var(--primary-190)] border-0 border-solid border-r border-gray-300"
+      *ngFor="let breadcrumb of (breadcrumbs$ | async) as breadcrumbList; let idx = index"
+      class="inline-flex items-center text-[color:var(--primary-150)] hover:text-[color:var(--primary-190)]"
+      [ngClass]="{
+        'border-0 border-solid border-r border-gray-300': idx + 1 < breadcrumbList.length
+      }"
     >
       <a
         [routerLink]="breadcrumb.url"
         class="text-[color:var(--primary-150)] hover:text-[color:var(--primary-190)] inline-flex items-center no-underline"
       >
+        <i *ngIf="idx === 0" data-icon="home" class="pr-1"></i>
         {{ breadcrumb.label }}
-        <i data-icon="chevron_right"></i>
+        <i *ngIf="idx + 1 < breadcrumbList.length" data-icon="chevron_right"></i>
       </a>
     </li>
   </ol>

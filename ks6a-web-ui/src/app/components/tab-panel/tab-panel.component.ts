@@ -16,6 +16,7 @@ export class TabPanelComponent implements OnInit {
   }
 
   tabClick (tabIndex: number): void {
+    this.tabIndex = tabIndex;
     this.tabClickEvent.emit(tabIndex);
   }
 

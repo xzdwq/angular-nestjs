@@ -19,19 +19,28 @@ const routes: Routes = [
       {
         path: ':projectId',
         component: ObjectEstimateComponent,
-        data: { breadcrumb: (data: { response: Project }) => `${data.response.name}` },
+        data: {
+          breadcrumb: (data: { response: Project }) => data.response,
+          langProp: { ru: 'name', en: 'nameEng' },
+        },
         resolve: { response: ProjectService },
         children: [
           {
             path: ':objectEstimateId',
             component: EstimateComponent,
-            data: { breadcrumb: (data: { response: ObjectEstimate }) => `${data.response.code}` },
+            data: {
+              breadcrumb: (data: { response: ObjectEstimate }) => `${data.response.code}`,
+              langProp: null,
+            },
             resolve: { response: ObjectEstimateService },
             children: [
               {
                 path: ':estimateId',
                 component: Ks6aItemComponent,
-                data: { breadcrumb: (data: { response: ObjectEstimate }) => `${data.response.code}` },
+                data: {
+                  breadcrumb: (data: { response: ObjectEstimate }) => `${data.response.code}`,
+                  langProp: null,
+                },
                 resolve: { response: EstimateService },
               },
             ],

@@ -1,2 +1,90 @@
 <app-message-mask [isShowMsg]="isShowMsg"></app-message-mask>
-<p>Ks6a item</p>
+<!-- Список КС-6а для конкретной сметы -->
+<app-hbf-content *ngIf="ks6aItems.length" [resizeTable]="false">
+  <!-- Header -->
+  <ng-template #headerTpl>
+    <tr *transloco="let t" class="text-sm">
+      <th colspan="2" class="border-0 border-b border-r border-solid border-[color:var(--gray-90)]">
+        {{ t('number') }}
+      </th>
+      <th rowspan="2" class="min-w-[80px]">{{ t('wbs_code') }}</th>
+      <th rowspan="2" class="min-w-[80px]">{{ t('cbs_code', { volume: 'I' }) }}</th>
+      <th rowspan="2" class="min-w-[80px]">{{ t('cbs_code', { volume: 'II' }) }}</th>
+      <th rowspan="2" class="min-w-[300px]">{{ t('work_type') }}</th>
+      <th rowspan="2" class="min-w-[200px]">{{ t('rate_number') }}</th>
+      <th rowspan="2">{{ t('unit_measure') }}</th>
+      <th rowspan="2" class="min-w-[100px]">{{ t('volume_work_estimate') }}</th>
+      <th rowspan="2" class="min-w-[100px]">{{ t('estimate_cost') }}</th>
+      <ng-container *ngFor="let p of period">
+        <th
+        colspan="2"
+        class="min-w-[80px] bg-[color:var(--green-25)] border-0 border-b border-r border-solid border-[color:var(--gray-90)]"
+        [ngClass]="{
+          'bg-red-300': p.year && p.type === 'period',
+          'bg-yellow-200': p.year && p.type === 'total'
+        }"
+      >
+        <span *ngIf="p.type !== 'total'; else totalHeader">{{ getExecutionDateLabel(p) | uppercase }}</span>
+        <ng-template #totalHeader>{{ t('total_all_periods') }}</ng-template>
+      </th>
+      </ng-container>
+    </tr>
+    <tr *transloco="let t" class="text-sm">
+      <th>{{ t('item_no') }}</th>
+      <th>{{ t('estimate_position') }}</th>
+      <ng-container *ngFor="let p of period">
+        <th
+          class="bg-[color:var(--green-25)]"
+          [ngClass]="{
+            'bg-red-300': p.year && p.type === 'period',
+            'bg-yellow-200': p.year && p.type === 'total'
+          }"
+        >
+          <span *ngIf="p.type === 'period'">{{ t('ks6a_balance') }}</span>
+          <span *ngIf="p.type === 'total'">{{ t('ks6a_close') }}</span>
+          <span *ngIf="p.type !== 'period' && p.type !== 'total'">{{ t('ks6a_execute') }}</span>
+        </th>
+        <th
+        class="bg-[color:var(--green-25)]"
+          [ngClass]="{
+            'bg-red-300': p.year && p.type === 'period',
+            'bg-yellow-200': p.year && p.type === 'total'
+          }"
+        >
+          <span *ngIf="p.type === 'period'">{{ t('ks2_customer') }}</span>
+          <span *ngIf="p.type === 'total'">{{ t('ks6a_balance') }}</span>
+          <span *ngIf="p.type !== 'period' && p.type !== 'total'">{{ t('ks2_customer') }}</span>
+        </th>
+      </ng-container>
+    </tr>
+  </ng-template>
+  <!-- Body -->
+  <ng-template #bodyTpl>
+    <tr *ngFor="let ks6aItem of ks6aItems; let idx = index" class="text-sm">
+      <td>{{ idx + 1 }}</td>
+      <td>{{ ks6aItem.number }}</td>
+      <td>{{ ks6aItem.wbsCode }}</td>
+      <td>{{ ks6aItem.cbsCodeI }}</td>
+      <td>{{ ks6aItem.cbsCodeII }}</td>
+      <td>{{ ks6aItem.name }}</td>
+      <td>{{ ks6aItem.code || '--' }}</td>
+      <td>{{ ks6aItem.unitMeasure }}</td>
+      <td>{{ ks6aItem.volume }}</td>
+      <td>{{ ks6aItem.cost }}</td>
+      <ng-container *ngFor="let p of period">
+        <td class="min-w-[60px]">
+          <span *ngIf="ks6aItem.id === p.ks6aItemId; else emptyVolume">{{ p.volume || '--' }}</span>
+          <ng-template #emptyVolume>--</ng-template>
+        </td>
+        <td class="min-w-[60px]">
+          <span *ngIf="ks6aItem.id === p.ks6aItemId; else emptyReminder">{{ p.reminder || '--' }}</span>
+          <ng-template #emptyReminder>--</ng-template>
+        </td>
+      </ng-container>
+    </tr>
+  </ng-template>
+  <!-- Footer -->
+  <ng-template #footerTpl>
+    <div *transloco="let t; read: 'info'">{{ t('all-records', { count: ks6aItems.length}) }}</div>
+  </ng-template>
+</app-hbf-content>
