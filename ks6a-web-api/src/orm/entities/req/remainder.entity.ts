@@ -4,10 +4,10 @@ import { Ks6aItemEntity } from "@src/orm";
 
 @Entity({
   synchronize: true,
-  schema: 'ks6a',
-  name: 'execution',
+  schema: 'req',
+  name: 'remainder',
 })
-export class ExecutionEntity {
+export class RemainderEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -15,25 +15,19 @@ export class ExecutionEntity {
   @Generated('uuid')
   guid: string;
 
-  @Column({
-    name: 'period_timestamp',
-    type: 'timestamp',
-  })
-  periodDate: Date;
+  @Column({ length: 4 })
+  year: string;
 
   @Column({
     type: 'decimal',
-    comment: 'Количество выполненных работ по КС-6а',
+    comment: 'Остаток работ по КС-6а в конце периода (года)',
   })
   volume: number;
 
-  @Column({
-    name: 'ks6a_item_id',
-    nullable: true,
-  })
+  @Column({ nullable: true })
   ks6aItemId: number;
-  @ManyToOne(() => Ks6aItemEntity, (rel) => rel.execution, { cascade: true })
-  @JoinColumn({ name: 'ks6a_item_id' })
+  @ManyToOne(() => Ks6aItemEntity, (rel) => rel.remainders, { cascade: true })
+  @JoinColumn()
   ks6aItem: Ks6aItemEntity;
 
   @CreateDateColumn({

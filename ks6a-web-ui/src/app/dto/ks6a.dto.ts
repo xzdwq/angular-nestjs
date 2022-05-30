@@ -1,4 +1,4 @@
-export interface Journal {
+export interface Ks6a {
   id: number;
   guid: string;
   createDate?: Date;

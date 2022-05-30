@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslocoService, AvailableLangs, LangDefinition } from '@ngneat/transloco';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tool-bar',
@@ -9,6 +10,7 @@ export class ToolBarComponent implements OnInit {
   currentLang!: string;
   constructor (
     private translocoService: TranslocoService,
+    private router: Router,
   ) {}
 
   ngOnInit (): void {
@@ -23,6 +25,10 @@ export class ToolBarComponent implements OnInit {
 
   getLangs (): AvailableLangs {
     return this.translocoService.getAvailableLangs();
+  }
+
+  goHome (): void {
+    this.router.navigate(['project/1']);
   }
 
 }

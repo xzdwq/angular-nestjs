@@ -6,7 +6,7 @@
   <ng-template #headerTpl>
     <tr *transloco="let t">
       <th class="w-72">{{ t('kks') }}</th>
-      <th class="w-72">{{ t('local-estimate-number') }}</th>
+      <th class="w-72">{{ t('localEstimateNumber') }}</th>
       <th>{{ t('name') }}</th>
     </tr>
   </ng-template>
@@ -28,6 +28,6 @@
   </ng-template>
   <!-- Footer -->
   <ng-template #footerTpl>
-    <div *transloco="let t; read: 'info'">{{ t('all-records', { count: estimates.length}) }}</div>
+    <div *transloco="let t; read: 'info'">{{ t('allRecords', { count: estimates.length}) }}</div>
   </ng-template>
 </app-hbf-content>

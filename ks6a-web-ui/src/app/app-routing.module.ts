@@ -29,7 +29,7 @@ const routes: Routes = [
             path: ':objectEstimateId',
             component: EstimateComponent,
             data: {
-              breadcrumb: (data: { response: ObjectEstimate }) => `${data.response.code}`,
+              breadcrumb: (data: { response: ObjectEstimate }) => `${data.response?.code}`,
               langProp: null,
             },
             resolve: { response: ObjectEstimateService },
@@ -38,7 +38,7 @@ const routes: Routes = [
                 path: ':estimateId',
                 component: Ks6aItemComponent,
                 data: {
-                  breadcrumb: (data: { response: ObjectEstimate }) => `${data.response.code}`,
+                  breadcrumb: (data: { response: ObjectEstimate }) => `${data.response?.code}`,
                   langProp: null,
                 },
                 resolve: { response: EstimateService },

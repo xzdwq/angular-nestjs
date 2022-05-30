@@ -1,10 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, BeforeUpdate, OneToMany } from "typeorm";
 
-import { Ks6aItemEntity, Ks6aJournalEntity, ObjectEstimateEntity } from '@src/orm';
+import { Ks6aItemEntity, Ks6aEntity, ObjectEstimateEntity } from '@src/orm';
 
 @Entity({
   synchronize: true,
-  schema: 'ks6a',
+  schema: 'req',
   name: 'estimate',
   orderBy: {
     sorting: 'ASC',
@@ -24,10 +24,7 @@ export class EstimateEntity {
   @Column({ length: 1024 })
   name: string;
 
-  @Column({
-    name: 'name_eng',
-    length: 1024,
-  })
+  @Column({ length: 1024 })
   nameEng: string;
 
   @Column({
@@ -38,7 +35,6 @@ export class EstimateEntity {
   code: string;
 
   @Column({
-    name: 'local_estimate_number',
     length: 1024,
     unique: true,
   })
@@ -47,20 +43,17 @@ export class EstimateEntity {
   @Column()
   sorting: number;
 
-  @Column({
-    name: 'object_estimate_id',
-    nullable: true,
-  })
+  @Column({ nullable: true })
   objectEstimateId: number;
   @ManyToOne(() => ObjectEstimateEntity, (rel) => rel.estimates, { cascade: true })
-  @JoinColumn({ name: 'object_estimate_id' })
+  @JoinColumn()
   objectEstimate: ObjectEstimateEntity;
 
-  @OneToMany(() => Ks6aJournalEntity, (rel) => rel.estimate)
-  journals: Ks6aJournalEntity[];
+  @OneToMany(() => Ks6aEntity, (rel) => rel.estimate)
+  ks6as: Ks6aEntity[];
 
   @OneToMany(() => Ks6aItemEntity, (rel) => rel.estimate)
-  ks6aItem: Ks6aItemEntity[];
+  ks6aItems: Ks6aItemEntity[];
 
   @CreateDateColumn({
     name: 'create_timestamp',

@@ -1,14 +1,16 @@
 import { BeforeUpdate, Column, CreateDateColumn, Entity, Generated, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
-import { Ks6aItemEntity } from "@src/orm";
-import { ReminderEnum } from '@src/dto/types/remainder.type';
+import { Ks6aItemContractorEntity, Ks6aItemEntity } from "@src/orm";
 
 @Entity({
   synchronize: true,
-  schema: 'ks6a',
-  name: 'remainder',
+  schema: 'req',
+  name: 'execution',
+  orderBy: {
+    periodDate: 'ASC',
+  },
 })
-export class RemainderEntity {
+export class ExecutionEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -17,29 +19,28 @@ export class RemainderEntity {
   guid: string;
 
   @Column({
-    type: 'enum',
-    enum: ReminderEnum,
-    default: ReminderEnum.period,
+    name: 'period_timestamp',
+    type: 'timestamp',
   })
-  type: string;
-
-  @Column({ length: 4 })
-  year: string;
+  periodDate: Date;
 
   @Column({
     type: 'decimal',
-    comment: 'Остаток работ по КС-6а в конце периода (года)',
+    comment: 'Количество выполненных работ по КС-6а',
   })
   volume: number;
 
-  @Column({
-    name: 'ks6a_item_id',
-    nullable: true,
-  })
+  @Column({ nullable: true })
   ks6aItemId: number;
-  @ManyToOne(() => Ks6aItemEntity, (rel) => rel.remainder, { cascade: true })
-  @JoinColumn({ name: 'ks6a_item_id' })
+  @ManyToOne(() => Ks6aItemEntity, (rel) => rel.executions, { cascade: true })
+  @JoinColumn()
   ks6aItem: Ks6aItemEntity;
+
+  @Column({ nullable: true })
+  ks6aItemContractorId: number;
+  @ManyToOne(() => Ks6aItemContractorEntity, (rel) => rel.executions, { cascade: true })
+  @JoinColumn()
+  ks6aItemContractor: Ks6aItemContractorEntity;
 
   @CreateDateColumn({
     name: 'create_timestamp',

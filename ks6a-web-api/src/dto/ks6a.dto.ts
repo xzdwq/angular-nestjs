@@ -1,7 +1,7 @@
 import { IsEmpty, IsNumber, IsString, IsDate, IsOptional, IsUUID, MaxLength } from 'class-validator';
 import { Type } from 'class-transformer';
 
-export class Journal {
+export class Ks6a {
   @IsEmpty()
   id: number;
 
@@ -27,9 +27,9 @@ export class Journal {
   @IsOptional()
   @IsString()
   @MaxLength(1024)
-  contractorName: string;
+  contractorName?: string;
 
   @IsOptional()
   @IsNumber()
-  estimateId: number;
+  estimateId?: number;
 }

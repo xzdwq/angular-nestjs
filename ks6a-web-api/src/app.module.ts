@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { APP_FILTER } from '@nestjs/core';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 import configuration from '@cfg/configuration';
 import { HttpErrorFilter } from '@src/core/http-error.filter';
@@ -37,6 +38,7 @@ import { Ks6aItemModule } from '@src/ks6a-item/ks6a-item.module';
           connectionTimeoutMillis: 1000,
         },
         logging: ['warn', 'error'],
+        namingStrategy: new SnakeNamingStrategy(),
       }),
     }),
     ProjectModule,

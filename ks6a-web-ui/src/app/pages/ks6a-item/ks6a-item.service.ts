@@ -4,7 +4,7 @@ import { map, Observable } from 'rxjs';
 
 import { LoadMaskService } from '@cmp/load-mask/load-mask.service';
 import { MessageMaskService } from '@cmp/message-mask/message-mask.service';
-import { Ks6aItem, Period } from '@app/dto';
+import { Ks6aItem } from '@app/dto';
 
 @Injectable({
   providedIn: 'root',
@@ -17,9 +17,9 @@ export class Ks6aItemService {
   ) {}
 
   // Получаем список КС-6а для конкретной сметы
-  fetchKs6aItems (estimateId: number): Observable<{ ks6aItems: Ks6aItem[], periods: Period[] }> {
+  fetchKs6aItems (estimateId: number): Observable<Ks6aItem[]> {
     this.loadMaskService.setLoad(true);
-    return this.http.get<{ ks6aItems: Ks6aItem[], periods: Period[] }>('/api/v1/ks6a-item/get-ks6a-items',
+    return this.http.get<Ks6aItem[]>('/api/v1/ks6a-item/get-ks6a-items',
       {
         params: {
           estimateId: estimateId,
@@ -28,7 +28,7 @@ export class Ks6aItemService {
     )
       .pipe(
         map((res) => {
-          if (!res.ks6aItems.length)
+          if (!res.length)
             this.messageMaskService.setIsShowMsg({ subRaw: Ks6aItemService.name });
           this.loadMaskService.setLoad(false);
           return res;

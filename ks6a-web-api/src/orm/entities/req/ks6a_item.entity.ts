@@ -1,10 +1,10 @@
-import { BeforeUpdate, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BeforeUpdate, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
-import { EstimateEntity, ExecutionEntity, Ks6aJournalEntity, RemainderEntity } from "@src/orm";
+import { EstimateEntity, ExecutionEntity, Ks6aEntity, RemainderEntity, Ks6aItemContractorEntity, TotalEntity } from "@src/orm";
 
 @Entity({
   synchronize: true,
-  schema: 'ks6a',
+  schema: 'req',
   name: 'ks6a_item',
 })
 export class Ks6aItemEntity {
@@ -28,7 +28,6 @@ export class Ks6aItemEntity {
   code: string;
 
   @Column({
-    name: 'unit_measure',
     length: 50,
     comment: 'Единица измерения',
   })
@@ -64,47 +63,41 @@ export class Ks6aItemEntity {
   @Column({ length: 50 })
   kks: string;
 
-  @Column({
-    name: 'wbs_code',
-    length: 50,
-  })
+  @Column({ length: 50 })
   wbsCode: string;
 
-  @Column({
-    name: 'cbs_code_i',
-    length: 50,
-  })
+  @Column({ length: 50 })
   cbsCodeI: string;
 
-  @Column({
-    name: 'cbs_code_ii',
-    length: 50,
-  })
+  @Column({ length: 50 })
   cbsCodeII: string;
 
-  @Column({
-    name: 'estimate_id',
-    nullable: true,
-  })
+  @Column({ nullable: true })
   estimateId: number;
-  @ManyToOne(() => EstimateEntity, (rel) => rel.ks6aItem, { cascade: true })
-  @JoinColumn({ name: 'estimate_id' })
+  @ManyToOne(() => EstimateEntity, (rel) => rel.ks6aItems, { cascade: true })
+  @JoinColumn()
   estimate: EstimateEntity;
 
-  @Column({
-    name: 'journal_id',
-    nullable: true,
-  })
-  journalId: number;
-  @ManyToOne(() => Ks6aJournalEntity, (rel) => rel.journals, { cascade: true, eager: true })
-  @JoinColumn({ name: 'journal_id' })
-  journal: Ks6aJournalEntity;
+  @Column({ nullable: true })
+  ks6aId: number;
+  @ManyToOne(() => Ks6aEntity, (rel) => rel.ks6as, { cascade: true, eager: true })
+  @JoinColumn()
+  ks6a: Ks6aEntity;
 
   @OneToMany(() => ExecutionEntity, (rel) => rel.ks6aItem, { eager: true })
-  execution: ExecutionEntity[];
+  executions: ExecutionEntity[];
 
   @OneToMany(() => RemainderEntity, (rel) => rel.ks6aItem, { eager: true })
-  remainder: RemainderEntity[];
+  remainders: RemainderEntity[];
+
+  @OneToMany(() => Ks6aItemContractorEntity, (rel) => rel.ks6aItem, { eager: true })
+  ks6aItemContractors: Ks6aItemContractorEntity[];
+
+  @Column({ nullable: true })
+  totalId: number;
+  @OneToOne(() => TotalEntity, (rel) => rel.ks6aItem, { eager: true })
+  @JoinColumn()
+  total: TotalEntity;
 
   @CreateDateColumn({
     name: 'create_timestamp',

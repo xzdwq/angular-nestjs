@@ -1,7 +1,5 @@
-import { IsEmpty, IsNumber, IsDate, IsOptional, IsUUID, IsNotEmpty, IsEnum, IsString } from 'class-validator';
+import { IsEmpty, IsNumber, IsDate, IsOptional, IsUUID } from 'class-validator';
 import { Type } from 'class-transformer';
-
-import { ReminderEnum } from '@src/dto/types/remainder.type';
 
 export class Reminder {
   @IsEmpty()
@@ -20,11 +18,6 @@ export class Reminder {
   @IsDate()
   @Type(() => Date)
   updateDate?: Date;
-
-  @IsNotEmpty()
-  @IsString()
-  @IsEnum(ReminderEnum)
-  type: string;
 
   @IsOptional()
   @IsNumber()

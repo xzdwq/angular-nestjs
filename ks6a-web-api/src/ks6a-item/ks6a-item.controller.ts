@@ -2,7 +2,7 @@ import { Controller, Get, Query, Version } from '@nestjs/common';
 import { Observable } from 'rxjs';
 
 import { Ks6aItemService } from '@src/ks6a-item/ks6a-item.service';
-import { Ks6aItem, Period } from '@src/dto';
+import { Ks6aItem } from '@src/dto';
 
 @Controller('ks6a-item')
 export class Ks6aItemController {
@@ -12,7 +12,7 @@ export class Ks6aItemController {
   @Get('get-ks6a-items')
   fetchKs6aItems (
     @Query('estimateId') estimateId: number,
-  ): Observable<{ ks6aItems: Ks6aItem[]; periods: Period[] }> {
+  ): Observable<Ks6aItem[]> {
     return this.ks6aItemService.fetchKs6aItems(estimateId);
   }
 

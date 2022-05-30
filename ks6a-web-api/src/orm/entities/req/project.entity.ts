@@ -1,16 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, OneToMany, BeforeUpdate } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, BeforeUpdate } from "typeorm";
 
-import { ProjectEntity, EstimateEntity } from '@src/orm';
+import { ObjectEstimateEntity } from '@src/orm';
 
 @Entity({
   synchronize: true,
-  schema: 'ks6a',
-  name: 'object_estimate',
+  schema: 'req',
+  name: 'project',
   orderBy: {
     sorting: 'ASC',
   },
 })
-export class ObjectEstimateEntity {
+export class ProjectEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -24,10 +24,7 @@ export class ObjectEstimateEntity {
   @Column({ length: 1024 })
   name: string;
 
-  @Column({
-    name: 'name_eng',
-    length: 1024,
-  })
+  @Column({ length: 1024 })
   nameEng: string;
 
   @Column({
@@ -40,17 +37,8 @@ export class ObjectEstimateEntity {
   @Column()
   sorting: number;
 
-  @Column({
-    name: 'project_id',
-    nullable: true,
-  })
-  projectId: number;
-  @ManyToOne(() => ProjectEntity, (rel) => rel.objectEstimates, { cascade: true })
-  @JoinColumn({ name: 'project_id' })
-  project: ProjectEntity;
-
-  @OneToMany(() => EstimateEntity, (rel) => rel.objectEstimate)
-  estimates: EstimateEntity[];
+  @OneToMany(() => ObjectEstimateEntity, (rel) => rel.project)
+  objectEstimates: ObjectEstimateEntity[];
 
   @CreateDateColumn({
     name: 'create_timestamp',
@@ -63,7 +51,6 @@ export class ObjectEstimateEntity {
     type: 'timestamp',
   })
   updateDate: Date;
-
 
   @BeforeUpdate()
   updateTimestamp (): void {

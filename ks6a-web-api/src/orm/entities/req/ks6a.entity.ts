@@ -4,10 +4,10 @@ import { EstimateEntity, Ks6aItemEntity } from "@src/orm";
 
 @Entity({
   synchronize: true,
-  schema: 'ks6a',
-  name: 'journal',
+  schema: 'req',
+  name: 'ks6a',
 })
-export class Ks6aJournalEntity {
+export class Ks6aEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -15,29 +15,20 @@ export class Ks6aJournalEntity {
   @Generated('uuid')
   guid: string;
 
-  @Column({
-    name: 'customer_name',
-    length: 1024,
-  })
+  @Column({ length: 1024 })
   customerName: string;
 
-  @Column({
-    name: 'contractor_name',
-    length: 1024,
-  })
+  @Column({ length: 1024 })
   contractorName: string;
 
-  @Column({
-    name: 'estimate_id',
-    nullable: true,
-  })
+  @Column({ nullable: true })
   estimateId: number;
-  @ManyToOne(() => EstimateEntity, (rel) => rel.journals, { cascade: true })
-  @JoinColumn({ name: 'estimate_id' })
+  @ManyToOne(() => EstimateEntity, (rel) => rel.ks6as, { cascade: true })
+  @JoinColumn()
   estimate: EstimateEntity;
 
-  @OneToMany(() => Ks6aItemEntity, (rel) => rel.journal)
-  journals: Ks6aItemEntity[];
+  @OneToMany(() => Ks6aItemEntity, (rel) => rel.ks6a)
+  ks6as: Ks6aItemEntity[];
 
   @CreateDateColumn({
     name: 'create_timestamp',

@@ -10,7 +10,7 @@
     <i [attr.data-icon]="msgParams.iconName"></i>
     <div class="flex-1 pl-2">
       <div *ngIf="!msgParams.msgRaw; else msgRawTpl">
-        <div *transloco="let t; read: 'msg'">{{ t(msgParams.msgLang || 'data-empty') }}</div>
+        <div *transloco="let t; read: 'msg'">{{ t(msgParams.msgLang || 'dataEmpty') }}</div>
       </div>
       <ng-template #msgRawTpl>
         <div>{{ msgParams.msgRaw }}</div>

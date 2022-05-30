@@ -7,84 +7,82 @@
       <th colspan="2" class="border-0 border-b border-r border-solid border-[color:var(--gray-90)]">
         {{ t('number') }}
       </th>
-      <th rowspan="2" class="min-w-[80px]">{{ t('wbs_code') }}</th>
-      <th rowspan="2" class="min-w-[80px]">{{ t('cbs_code', { volume: 'I' }) }}</th>
-      <th rowspan="2" class="min-w-[80px]">{{ t('cbs_code', { volume: 'II' }) }}</th>
-      <th rowspan="2" class="min-w-[300px]">{{ t('work_type') }}</th>
-      <th rowspan="2" class="min-w-[200px]">{{ t('rate_number') }}</th>
-      <th rowspan="2">{{ t('unit_measure') }}</th>
-      <th rowspan="2" class="min-w-[100px]">{{ t('volume_work_estimate') }}</th>
-      <th rowspan="2" class="min-w-[100px]">{{ t('estimate_cost') }}</th>
-      <ng-container *ngFor="let p of period">
+      <th rowspan="2" class="min-w-[80px]">{{ t('wbsCode') }}</th>
+      <th rowspan="2" class="min-w-[80px]">{{ t('cbsCode', { volume: 'I' }) }}</th>
+      <th rowspan="2" class="min-w-[80px]">{{ t('cbsCode', { volume: 'II' }) }}</th>
+      <th rowspan="2" class="min-w-[300px]">{{ t('workType') }}</th>
+      <th rowspan="2" class="min-w-[200px]">{{ t('rateNumber') }}</th>
+      <th rowspan="2">{{ t('unitMeasure') }}</th>
+      <th rowspan="2" class="min-w-[100px]">{{ t('volumeWorkEstimate') }}</th>
+      <th rowspan="2" class="min-w-[100px]">{{ t('estimateCost') }}</th>
+      <!-- Выполнение -->
+      <ng-container *ngFor="let execution of executions">
         <th
-        colspan="2"
-        class="min-w-[80px] bg-[color:var(--green-25)] border-0 border-b border-r border-solid border-[color:var(--gray-90)]"
-        [ngClass]="{
-          'bg-red-300': p.year && p.type === 'period',
-          'bg-yellow-200': p.year && p.type === 'total'
-        }"
-      >
-        <span *ngIf="p.type !== 'total'; else totalHeader">{{ getExecutionDateLabel(p) | uppercase }}</span>
-        <ng-template #totalHeader>{{ t('total_all_periods') }}</ng-template>
-      </th>
+          colspan="2"
+          class="min-w-[170px] bg-[color:var(--green-25)] border-0 border-b border-r border-solid border-[color:var(--gray-90)]"
+        >
+          {{ getExecutionDateLabel(execution) | uppercase }}
+        </th>
       </ng-container>
+      <!-- Итого по всем периодам -->
+      <th
+        colspan="2"
+        class="border-0 border-b border-r border-solid border-[color:var(--gray-90)] bg-red-200 min-w-[200px]"
+      >
+        {{ t('totalAllPeriods') }}
+      </th>
     </tr>
     <tr *transloco="let t" class="text-sm">
-      <th>{{ t('item_no') }}</th>
-      <th>{{ t('estimate_position') }}</th>
-      <ng-container *ngFor="let p of period">
-        <th
-          class="bg-[color:var(--green-25)]"
-          [ngClass]="{
-            'bg-red-300': p.year && p.type === 'period',
-            'bg-yellow-200': p.year && p.type === 'total'
-          }"
-        >
-          <span *ngIf="p.type === 'period'">{{ t('ks6a_balance') }}</span>
-          <span *ngIf="p.type === 'total'">{{ t('ks6a_close') }}</span>
-          <span *ngIf="p.type !== 'period' && p.type !== 'total'">{{ t('ks6a_execute') }}</span>
-        </th>
-        <th
-        class="bg-[color:var(--green-25)]"
-          [ngClass]="{
-            'bg-red-300': p.year && p.type === 'period',
-            'bg-yellow-200': p.year && p.type === 'total'
-          }"
-        >
-          <span *ngIf="p.type === 'period'">{{ t('ks2_customer') }}</span>
-          <span *ngIf="p.type === 'total'">{{ t('ks6a_balance') }}</span>
-          <span *ngIf="p.type !== 'period' && p.type !== 'total'">{{ t('ks2_customer') }}</span>
-        </th>
+      <th>{{ t('itemNo') }}</th>
+      <th>{{ t('estimatePosition') }}</th>
+      <ng-container *ngFor="let execution of executions">
+        <th class="bg-[color:var(--green-25)]">{{ t('ks6aBalance') }}</th>
+        <th class="bg-[color:var(--green-25)]">{{ t('ks6aClose') }}</th>
+        <!-- TODO Загловки по остаткам-->
+        <!-- /Загловки по остаткам -->
       </ng-container>
+      <th class="bg-red-200">{{ t('ks6aClose') }}</th>
+      <th class="bg-red-200">{{ t('ks6aBalance') }}</th>
     </tr>
   </ng-template>
   <!-- Body -->
   <ng-template #bodyTpl>
     <tr *ngFor="let ks6aItem of ks6aItems; let idx = index" class="text-sm">
-      <td>{{ idx + 1 }}</td>
-      <td>{{ ks6aItem.number }}</td>
-      <td>{{ ks6aItem.wbsCode }}</td>
-      <td>{{ ks6aItem.cbsCodeI }}</td>
-      <td>{{ ks6aItem.cbsCodeII }}</td>
-      <td>{{ ks6aItem.name }}</td>
-      <td>{{ ks6aItem.code || '--' }}</td>
-      <td>{{ ks6aItem.unitMeasure }}</td>
-      <td>{{ ks6aItem.volume }}</td>
-      <td>{{ ks6aItem.cost }}</td>
-      <ng-container *ngFor="let p of period">
-        <td class="min-w-[60px]">
-          <span *ngIf="ks6aItem.id === p.ks6aItemId; else emptyVolume">{{ p.volume || '--' }}</span>
-          <ng-template #emptyVolume>--</ng-template>
-        </td>
-        <td class="min-w-[60px]">
-          <span *ngIf="ks6aItem.id === p.ks6aItemId; else emptyReminder">{{ p.reminder || '--' }}</span>
-          <ng-template #emptyReminder>--</ng-template>
-        </td>
+      <!-- Строка -->
+      <ng-container *ngIf="!ks6aItem.contractor; else tplContractor">
+        <td>{{ idx + 1 }}</td>
+        <td>{{ ks6aItem.number }}</td>
+        <td>{{ ks6aItem.wbsCode }}</td>
+        <td>{{ ks6aItem.cbsCodeI }}</td>
+        <td>{{ ks6aItem.cbsCodeII }}</td>
+        <td>{{ ks6aItem.name }}</td>
+        <td>{{ ks6aItem.code || '--' }}</td>
+        <td>{{ ks6aItem.unitMeasure }}</td>
+        <td>{{ ks6aItem.volume }}</td>
+        <td>{{ ks6aItem.cost }}</td>
+        <!-- Выполнение -->
+        <ng-container *ngFor="let execution of executions">
+          <td>{{ execution.volume }}</td>
+          <td>--</td>
+        </ng-container>
+        <!-- Итого -->
+        <td>{{ ks6aItem.total.quantityVolume }}</td>
+        <td>{{ ks6aItem.total.customerVolume }}</td>
       </ng-container>
+      <!-- Исполнители -->
+      <ng-template #tplContractor>
+        <td colspan="2"></td>
+        <td colspan="8">{{ ks6aItem.contractor.name }}</td>
+        <!-- TODO: Выполнение смержить ks6aItem.executions и execution -->
+        <ng-container *ngFor="let execution of ks6aItem.executions">
+          <td>{{ execution.volume }}</td>
+        </ng-container>
+      </ng-template>
     </tr>
+    <!-- Исполнители -->
   </ng-template>
   <!-- Footer -->
   <ng-template #footerTpl>
-    <div *transloco="let t; read: 'info'">{{ t('all-records', { count: ks6aItems.length}) }}</div>
+    <div *transloco="let t; read: 'info'">{{ t('allRecords', { count: ks6aItems.length}) }}</div>
   </ng-template>
 </app-hbf-content>

@@ -31,4 +31,8 @@ export class Execution {
   @IsOptional()
   @IsNumber()
   ks6aItemId: number;
+
+  @IsOptional()
+  @Type((val) => val ? Number: null)
+  ks6aItemContractorId: number | null;
 }

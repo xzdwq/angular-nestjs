@@ -1,8 +1,6 @@
 import { IsEmpty, IsNotEmpty, IsNumber, IsString, IsDate, IsOptional, IsUUID, MaxLength } from 'class-validator';
 import { Type } from 'class-transformer';
 
-import { Execution } from '@src/dto';
-
 export class Ks6aItem {
   @IsEmpty()
   id: number;
@@ -83,8 +81,9 @@ export class Ks6aItem {
 
   @IsOptional()
   @IsNumber()
-  journalId: number;
+  ks6aId: number;
 
   @IsOptional()
-  execution?: Execution[];
+  @IsNumber()
+  totalId?: number;
 }

@@ -13,7 +13,7 @@ export class MessageMaskService {
    */
   public type: string = 'info';
   public iconName: string = 'info';
-  public msgLang: string = 'data-empty';
+  public msgLang: string = 'dataEmpty';
   public msgRaw: string = '';
   public subRaw: string = '';
   constructor () {}

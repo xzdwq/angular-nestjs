@@ -40,7 +40,8 @@ export class BreadcrumbService {
           label: this.getLabel(route.data),
           url: '/' + routeUrl.join('/'),
         };
-        breadcrumbs.push(breadcrumb);
+        if (breadcrumb.label && breadcrumb.label !== 'undefined')
+          breadcrumbs.push(breadcrumb);
       }
 
       this.addBreadcrumb(route.firstChild, routeUrl, breadcrumbs);
@@ -49,7 +50,7 @@ export class BreadcrumbService {
 
   private getLabel (data: Data) {
     return typeof data['breadcrumb'] === 'function'
-      ? (data['langProp'] ? data['breadcrumb'](data)[data['langProp'][this.currentLang]] : data['breadcrumb'](data))
+      ? (data['langProp'] ? data['breadcrumb'](data)?.[data['langProp'][this.currentLang]] : data['breadcrumb'](data))
       : data['breadcrumb'];
   }
 
