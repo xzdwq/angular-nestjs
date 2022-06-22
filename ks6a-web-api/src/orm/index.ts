@@ -9,6 +9,13 @@ import { RemainderEntity } from '@src/orm/entities/req/remainder.entity';
 import { ContractorEntity } from '@src/orm/entities/req/contractor.entity';
 import { TotalEntity } from '@src/orm/entities/req/total.entity';
 import { Ks6aItemContractorEntity } from '@src/orm/entities/req/ks6a_item_contractor.entity';
+import { Ks6aPeriodEntity } from '@src/orm/entities/req/ks6a_period.entity';
+import { PeriodTypeEntity } from '@src/orm/entities/req/period_type.entity';
+
+// public
+import { UserEntity } from '@src/orm/entities/public/user.entity';
+import { RoleEntity } from '@src/orm/entities/public/role.entity';
+import { UserRoleEntity } from '@src/orm/entities/public/user_role.entity';
 
 export const entities = [
   ProjectEntity,
@@ -21,6 +28,11 @@ export const entities = [
   ContractorEntity,
   TotalEntity,
   Ks6aItemContractorEntity,
+  UserEntity,
+  RoleEntity,
+  UserRoleEntity,
+  Ks6aPeriodEntity,
+  PeriodTypeEntity,
 ];
 
 export {
@@ -34,4 +46,9 @@ export {
   ContractorEntity,
   TotalEntity,
   Ks6aItemContractorEntity,
+  UserEntity,
+  RoleEntity,
+  UserRoleEntity,
+  Ks6aPeriodEntity,
+  PeriodTypeEntity,
 };

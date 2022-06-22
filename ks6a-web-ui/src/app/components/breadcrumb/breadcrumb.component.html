@@ -11,9 +11,13 @@
         [routerLink]="breadcrumb.url"
         class="text-[color:var(--primary-150)] hover:text-[color:var(--primary-190)] inline-flex items-center no-underline"
       >
-        <i *ngIf="idx === 0 && breadcrumb.label" data-icon="home" class="pr-1"></i>
+      <ng-container *ngIf="idx === 0 && breadcrumb.label">
+        <i data-icon="home" class="pr-1"></i>
+      </ng-container>
         {{ breadcrumb.label }}
-        <i *ngIf="idx + 1 < breadcrumbList.length" data-icon="chevron_right"></i>
+      <ng-container *ngIf="idx + 1 < breadcrumbList.length">
+        <i data-icon="chevron_right"></i>
+      </ng-container>
       </a>
     </li>
   </ol>

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "ng": "ng",
-    "go": "ng serve --open",
+    "go": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "lint": "eslint .",

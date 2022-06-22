@@ -1,21 +1,27 @@
-<div *ngIf="isShowMsg" class="font-monospace p-2 w-auto h-auto flex items-center justify-center">
-  <div
-    class="p-2 w-2/4 rounded flex items-center text-sm"
-    [ngClass]="{
-      'bg-[color:var(--blue-10)] text-[color:var(--blue-90)]': msgParams.type === 'info',
-      'bg-[color:var(--yellow-10)] text-[color:var(--yellow-90)]': msgParams.type === 'warning',
-      'bg-[color:var(--red-10)] text-[color:var(--red-90)]': msgParams.type === 'danger'
-    }"
-  >
-    <i [attr.data-icon]="msgParams.iconName"></i>
-    <div class="flex-1 pl-2">
-      <div *ngIf="!msgParams.msgRaw; else msgRawTpl">
-        <div *transloco="let t; read: 'msg'">{{ t(msgParams.msgLang || 'dataEmpty') }}</div>
+<ng-container *ngIf="isShowMsg">
+  <div class="font-monospace p-2 w-auto h-auto flex items-center justify-center">
+    <div
+      class="p-2 w-2/4 rounded flex items-center text-sm"
+      [ngClass]="{
+        'bg-[color:var(--blue-10)] text-[color:var(--blue-90)]': msgParams.type === 'info',
+        'bg-[color:var(--yellow-10)] text-[color:var(--yellow-90)]': msgParams.type === 'warning',
+        'bg-[color:var(--red-10)] text-[color:var(--red-90)]': msgParams.type === 'danger'
+      }"
+    >
+      <i [attr.data-icon]="msgParams.iconName"></i>
+      <div class="flex-1 pl-2">
+        <ng-container *ngIf="!msgParams.msgRaw; else msgRawTpl">
+          <div>
+            <div *transloco="let t; read: 'msg'">{{ t(msgParams.msgLang || 'dataEmpty') }}</div>
+          </div>
+        </ng-container>
+        <ng-template #msgRawTpl>
+          <div>{{ msgParams.msgRaw }}</div>
+        </ng-template>
+        <ng-container *ngIf="msgParams.subRaw">
+          <div class="text-xs">{{ msgParams.subRaw }}</div>
+        </ng-container>
       </div>
-      <ng-template #msgRawTpl>
-        <div>{{ msgParams.msgRaw }}</div>
-      </ng-template>
-      <div *ngIf="msgParams.subRaw" class="text-xs">{{ msgParams.subRaw }}</div>
     </div>
   </div>
-</div>
+</ng-container>

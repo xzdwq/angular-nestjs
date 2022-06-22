@@ -10,8 +10,12 @@
   >
     <div class="flex items-center justify-center p-2 min-w-[70px]">
       <ng-container *transloco="let t; currentLang as currentLang">
-        <span *ngIf="currentLang === 'ru'">{{ item.name }}</span>
-        <span *ngIf="currentLang === 'en'">{{ item.nameEng }}</span>
+        <ng-container *ngIf="currentLang === 'ru'">
+          <span>{{ item.name }}</span>
+        </ng-container>
+        <ng-container *ngIf="currentLang === 'en'">
+          <span>{{ item.nameEng }}</span>
+        </ng-container>
       </ng-container>
     </div>
   </li>

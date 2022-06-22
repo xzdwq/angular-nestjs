@@ -31,5 +31,6 @@
   "ks2Customer": "КС-2 заказчика",
   "ks6aBalance": "Остаток по КС-6а",
   "ks2Balance": "Остаток по КС-2",
-  "totalAllPeriods": "Итоги за все периоды"
+  "totalAllPeriods": "Итоги за все периоды",
+  "balance": "Остаток"
 }

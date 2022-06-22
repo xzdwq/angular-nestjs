@@ -1,4 +1,4 @@
-import { Contractor } from '@app/dto';
+import { Contractor, Execution, Total } from '@app/dto';
 
 export interface Ks6aItemContractors {
   id: number;
@@ -9,4 +9,6 @@ export interface Ks6aItemContractors {
   totalId: number;
   createDate: Date;
   updateDate: Date;
+  executions: Execution[];
+  total: Total;
 };

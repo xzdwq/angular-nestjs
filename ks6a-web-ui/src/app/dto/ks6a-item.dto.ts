@@ -1,4 +1,4 @@
-import { Execution, Ks6a, Reminder, Total, Ks6aItemContractors, Contractor } from '@app/dto';
+import { Execution, Ks6a, Remainder, Total, Ks6aItemContractors } from '@app/dto';
 
 export interface Ks6aItem {
   id: number;
@@ -21,8 +21,7 @@ export interface Ks6aItem {
   ks6aId: number;
   executions: Execution[];
   ks6a: Ks6a;
-  remainder: Reminder[];
+  remainders: Remainder[];
   total: Total;
   ks6aItemContractors: Ks6aItemContractors[];
-  contractor: Contractor;
 };

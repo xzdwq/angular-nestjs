@@ -7,4 +7,5 @@ export interface Execution {
   volume?: number;
   ks6aItemId: number;
   ks6aItemContractorId: number | null;
+  tmpType?: string;
 };

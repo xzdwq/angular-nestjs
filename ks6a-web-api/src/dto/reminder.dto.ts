@@ -1,4 +1,4 @@
-import { IsEmpty, IsNumber, IsDate, IsOptional, IsUUID } from 'class-validator';
+import { IsEmpty, IsNumber, IsDate, IsOptional, IsUUID, IsString } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class Reminder {
@@ -26,4 +26,13 @@ export class Reminder {
   @IsOptional()
   @IsNumber()
   ks6aItemId: number;
+
+  @IsOptional()
+  @IsString()
+  year?: string;
+
+  @IsOptional()
+  @IsDate()
+  @Type(() => Date)
+  periodDate?: Date;
 }

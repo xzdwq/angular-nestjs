@@ -1,31 +1,37 @@
 <app-message-mask [isShowMsg]="isShowMsg"></app-message-mask>
 <router-outlet (activate)='componentShow = true' (deactivate)='componentShow = false'></router-outlet>
 <!-- Объекты смет для проекта -->
-<app-hbf-content *ngIf="objectEstimates.length && !componentShow" [resizeTable]="true">
-  <!-- Header -->
-  <ng-template #headerTpl>
-    <tr *transloco="let t">
-      <th class="w-72">{{ t('workCode') }}</th>
-      <th>{{ t('workTitle') }}</th>
-    </tr>
-  </ng-template>
-  <!-- Body -->
-  <ng-template #bodyTpl>
-    <tr *ngFor="let objectEstimate of objectEstimates">
-      <td
-        class="text-blue-800 underline cursor-pointer"
-        (click)="handlerObjectEstimate(objectEstimate)"
-      >{{ objectEstimate.code }}</td>
-      <td>
-        <ng-container *transloco="let t; currentLang as currentLang">
-          <span *ngIf="currentLang === 'ru'">{{ objectEstimate.name }}</span>
-          <span *ngIf="currentLang === 'en'">{{ objectEstimate.nameEng }}</span>
-        </ng-container>
-      </td>
-    </tr>
-  </ng-template>
-  <!-- Footer -->
-  <ng-template #footerTpl>
-    <div *transloco="let t; read: 'info'">{{ t('allRecords', { count: objectEstimates.length}) }}</div>
-  </ng-template>
-</app-hbf-content>
+<ng-container *ngIf="objectEstimates.length && !componentShow">
+  <app-hbf-content [resizeTable]="true">
+    <!-- Header -->
+    <ng-template #headerTpl>
+      <tr *transloco="let t">
+        <th class="w-72">{{ t('workCode') }}</th>
+        <th>{{ t('workTitle') }}</th>
+      </tr>
+    </ng-template>
+    <!-- Body -->
+    <ng-template #bodyTpl>
+      <tr *ngFor="let objectEstimate of objectEstimates">
+        <td
+          class="text-blue-800 underline cursor-pointer"
+          (click)="handlerObjectEstimate(objectEstimate)"
+        >{{ objectEstimate.code }}</td>
+        <td>
+          <ng-container *transloco="let t; currentLang as currentLang">
+            <ng-container *ngIf="currentLang === 'ru'">
+              <span>{{ objectEstimate.name }}</span>
+            </ng-container>
+            <ng-container *ngIf="currentLang === 'en'">
+              <span>{{ objectEstimate.nameEng }}</span>
+            </ng-container>
+          </ng-container>
+        </td>
+      </tr>
+    </ng-template>
+    <!-- Footer -->
+    <ng-template #footerTpl>
+      <div *transloco="let t; read: 'info'">{{ t('allRecords', { count: objectEstimates.length}) }}</div>
+    </ng-template>
+  </app-hbf-content>
+</ng-container>

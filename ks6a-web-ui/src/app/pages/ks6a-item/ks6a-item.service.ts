@@ -4,7 +4,7 @@ import { map, Observable } from 'rxjs';
 
 import { LoadMaskService } from '@cmp/load-mask/load-mask.service';
 import { MessageMaskService } from '@cmp/message-mask/message-mask.service';
-import { Ks6aItem } from '@app/dto';
+import { Ks6aItem, Ks6aPeriods } from '@app/dto';
 
 @Injectable({
   providedIn: 'root',
@@ -41,6 +41,16 @@ export class Ks6aItemService {
       {
         params: {
           ks6aItemId: ks6aItemId,
+        },
+      },
+    );
+  }
+
+  addPeriod (ks6aPeriod: Ks6aPeriods): Observable<Ks6aPeriods> {
+    return this.http.post<Ks6aPeriods>('/api/v1/ks6a-item/add-ks6a-period',
+      {
+        params: {
+          ks6aPeriod: ks6aPeriod,
         },
       },
     );

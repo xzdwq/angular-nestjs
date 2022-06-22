@@ -19,6 +19,9 @@ export class Ks6aItemService {
         alias: 'ks6a_item',
         leftJoinAndSelect: {
           executions: 'ks6a_item.executions',
+          ks6a: 'ks6a_item.ks6a',
+          ks6aPeriods: 'ks6a.ks6aPeriods',
+          periodType: 'ks6aPeriods.periodType',
         },
       },
       where: (qb: SelectQueryBuilder<Ks6aItem>) => {
@@ -26,9 +29,12 @@ export class Ks6aItemService {
           estimateId: estimateId,
         })
         .andWhere('executions.ks6a_item_contractor_id IS NULL')
-        .orderBy('executions.period_timestamp', 'ASC');
+        .orderBy('ks6aPeriods.period_timestamp', 'ASC');
       },
-    })
+      order: {
+        createDate: 'ASC',
+      },
+    });
     return from(ks6aItems);
   }
 

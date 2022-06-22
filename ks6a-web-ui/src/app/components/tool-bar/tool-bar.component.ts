@@ -31,4 +31,8 @@ export class ToolBarComponent implements OnInit {
     this.router.navigate(['project/1']);
   }
 
+  goSettings (): void {
+    this.router.navigate(['settings']);
+  }
+
 }

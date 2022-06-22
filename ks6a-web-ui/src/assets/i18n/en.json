@@ -31,5 +31,6 @@
   "ks2Customer": "KS-2 customer",
   "ks6aBalance": "Balance to KS-6a",
   "ks2Balance": "Balance to KS-2",
-  "totalAllPeriods": "Total for all periods"
+  "totalAllPeriods": "Total for all periods",
+  "balance": "Balance"
 }

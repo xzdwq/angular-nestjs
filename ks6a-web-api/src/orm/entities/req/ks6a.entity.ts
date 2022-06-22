@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BeforeUpdate, Generated, ManyToOne, JoinColumn, OneToMany } from "typeorm";
 
-import { EstimateEntity, Ks6aItemEntity } from "@src/orm";
+import { EstimateEntity, Ks6aItemEntity, Ks6aPeriodEntity } from "@src/orm";
 
 @Entity({
   synchronize: true,
@@ -29,6 +29,9 @@ export class Ks6aEntity {
 
   @OneToMany(() => Ks6aItemEntity, (rel) => rel.ks6a)
   ks6as: Ks6aItemEntity[];
+
+  @OneToMany(() => Ks6aPeriodEntity, (rel) => rel.ks6a)
+  ks6aPeriods: Ks6aPeriodEntity[];
 
   @CreateDateColumn({
     name: 'create_timestamp',

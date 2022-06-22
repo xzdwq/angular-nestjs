@@ -80,7 +80,7 @@ export class Ks6aItemEntity {
 
   @Column({ nullable: true })
   ks6aId: number;
-  @ManyToOne(() => Ks6aEntity, (rel) => rel.ks6as, { cascade: true, eager: true })
+  @ManyToOne(() => Ks6aEntity, (rel) => rel.ks6as, { cascade: true })
   @JoinColumn()
   ks6a: Ks6aEntity;
 

@@ -15,6 +15,12 @@ export class RemainderEntity {
   @Generated('uuid')
   guid: string;
 
+  @Column({
+    name: 'period_timestamp',
+    type: 'timestamp',
+  })
+  periodDate: Date;
+
   @Column({ length: 4 })
   year: string;
 
