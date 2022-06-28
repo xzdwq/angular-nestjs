@@ -6,10 +6,17 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { HttpErrorInterceptor } from '@app/core/http/http-error.filter';
 import { AppRoutingModule } from '@app/app-routing.module';
-import { TranslocoRootModule } from '@app/transloco-root.module';
+import { TranslocoRootModule } from '@/app/definitions/transloco-root.module';
 import { AppComponent } from '@app/app.component';
 import { ToolBarModule } from '@cmp/tool-bar/tool-bar.module';
 import { ProjectModule } from '@page/project/project.module';
+
+import { registerLocaleData } from '@angular/common';
+import localeEn from '@angular/common/locales/ru';
+import localeRu from '@angular/common/locales/ru';
+
+registerLocaleData(localeEn);
+registerLocaleData(localeRu);
 
 @NgModule({
   declarations: [

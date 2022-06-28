@@ -32,5 +32,8 @@
   "ks6aBalance": "Balance to KS-6a",
   "ks2Balance": "Balance to KS-2",
   "totalAllPeriods": "Total for all periods",
-  "balance": "Balance"
+  "balance": "Balance",
+  "onlyBalance": "Only balance",
+  "addPeriod": "Add period",
+  "deletePeriod": "Delete priod"
 }

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 
-import { TranslocoRootModule } from '@app/transloco-root.module';
+import { TranslocoRootModule } from '@/app/definitions/transloco-root.module';
 import { ToolBarComponent } from '@cmp/tool-bar/tool-bar.component';
 
 @NgModule({

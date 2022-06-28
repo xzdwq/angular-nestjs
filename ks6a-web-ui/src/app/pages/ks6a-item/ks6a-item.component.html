@@ -1,6 +1,24 @@
 <app-message-mask [isShowMsg]="isShowMsg"></app-message-mask>
 <!-- Список КС-6а для конкретной сметы -->
 <ng-container *ngIf="ks6aItems.length">
+  <!-- Toolbar -->
+  <div *transloco="let t" class="flex justify-end items-center p-1">
+    <div class="flex items-center">
+      <div class="flex items-center">
+        <span class="pr-2 font-bold">{{ t('onlyBalance') }}:</span>
+        <input
+          type="checkbox"
+          [checked]="isOnlyBalance"
+          class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600 cursor-pointer"
+          (change)="isOnlyBalance = !isOnlyBalance"
+        >
+      </div>
+      <div class="flex items-center pl-2">
+        <span class="pr-2 font-bold">{{ t('addPeriod') }}:</span>
+        <i [attr.data-icon]="'add_box'" class="filled text-[color:var(--green-90)] cursor-pointer hover:scale-125 duration-100" (click)="addKs6aPeriod()"></i>
+      </div>
+    </div>
+  </div>
   <app-hbf-content [resizeTable]="false">
     <!-- Header -->
     <ng-template #headerTpl>
@@ -19,21 +37,50 @@
         <th rowspan="2" class="z-[1] sticky left-[487px] bg-[color:var(--primary-25)] min-w-[95px]">{{ t('volumeWorkEstimate') }}</th>
         <!-- <th rowspan="2" class="min-w-[100px]">{{ t('estimateCost') }}</th> -->
         <!-- Выполнение/Остатки -->
-        <ng-container *ngFor="let ks6aPeriod of ks6aItems[0].ks6a.ks6aPeriods">
+        <ng-container *ngFor="let ks6aPeriod of ks6aItems[0].ks6a.ks6aPeriods; let index = index">
           <!-- Выполнение -->
           <ng-container *ngIf="ks6aPeriod.periodType.code === 'execution'; else remainderTmpl">
-            <th
-              colspan="2"
-              class="min-w-[170px] bg-[color:var(--green-25)] border-0 border-b border-r border-solid border-[color:var(--gray-90)]"
-              [ngClass]="{ 'bg-[color:var(--yellow-25)]': !ks6aPeriod.isFixed }"
-            >
-              <div class="relative">
-                <ng-container *ngIf="!ks6aPeriod.isFixed">
-                  <i [attr.data-icon]="'add_location'" class="absolute -top-[10px] -right-[14px] filled text-blue-900 cursor-pointer hover:scale-125 duration-100" (click)="addPeriod(ks6aPeriod)"></i>
+            <ng-container *ngIf="!isOnlyBalance">
+              <th
+                colspan="2"
+                class="min-w-[190px] bg-[color:var(--green-25)] border-0 border-b border-r border-solid border-[color:var(--gray-90)]"
+                [ngClass]="{ 'bg-[color:var(--yellow-25)]': !ks6aPeriod.isFixed }"
+              >
+                <!-- Загаловок выбора периода (месяц. год) для нефиксированных периодов -->
+                <ng-container *ngIf="!ks6aPeriod.isFixed; else fixedTmpl">
+                  <div class="flex">
+                    <nz-date-picker
+                      ngClass="date-input-not-fix"
+                      nzMode="month"
+                      nzSize="small"
+                      nzBorderless
+                      [nzFormat]="monthFormat"
+                      [nzBackdrop]="true"
+                      [nzAllowClear]="false"
+                      [(ngModel)]="ks6aPeriod.periodDate"
+                      (ngModelChange)="onChangeKs6aPeriod($event, index)"
+                    ></nz-date-picker>
+                    <!-- Контекстное меню -->
+                    <a nz-dropdown [nzDropdownMenu]="menu">
+                      <i data-icon="more_vert" class="text-gray-400"></i>
+                    </a>
+                    <nz-dropdown-menu #menu="nzDropdownMenu">
+                      <ul nz-menu nzSelectable>
+                        <!-- Удаление периода -->
+                        <li nz-menu-item (click)="deletePeriod(ks6aPeriod.id)">
+                          <i data-icon="delete" class="text-red-300"></i>
+                          {{ t('deletePeriod') }}
+                        </li>
+                      </ul>
+                    </nz-dropdown-menu>
+                  </div>
                 </ng-container>
-              </div>
-              {{ getExecutionDateLabel(ks6aPeriod) | uppercase }}
-            </th>
+                <!-- Заголовок фиксированного периода -->
+                <ng-template #fixedTmpl>
+                  {{ getExecutionDateLabel(ks6aPeriod) | uppercase }}
+                </ng-template>
+              </th>
+            </ng-container>
           </ng-container>
           <!-- Остатки -->
           <ng-template #remainderTmpl>
@@ -58,20 +105,39 @@
         <th class="min-w-[45px] sticky left-0 bg-[color:var(--primary-25)]">{{ t('itemNo') }}</th>
         <th class="min-w-[52px] sticky left-[47px] bg-[color:var(--primary-25)]">{{ t('estimatePosition') }}</th>
         <ng-container *ngFor="let ks6aPeriod of ks6aItems[0].ks6a.ks6aPeriods">
-          <th
-            class="bg-[color:var(--green-25)]"
-            [ngClass]="{
-              'bg-[color:var(--yellow-25)]': !ks6aPeriod.isFixed,
-              'bg-[color:var(--purple-25)]': ks6aPeriod.periodType.code === 'remainder'
-            }"
-          >{{ t('ks6aBalance') }}</th>
-          <th
-            class="bg-[color:var(--green-25)]"
-            [ngClass]="{
-              'bg-[color:var(--yellow-25)]': !ks6aPeriod.isFixed,
-              'bg-[color:var(--purple-25)]': ks6aPeriod.periodType.code === 'remainder'
-            }"
-          >{{ t('ks6aClose') }}</th>
+          <!-- Подзаголовки выполнение/остатки -->
+          <!-- Выполнение -->
+          <ng-container *ngIf="ks6aPeriod.periodType.code === 'execution'; else remainderTmpl">
+            <ng-container *ngIf="!isOnlyBalance">
+              <th
+                class="bg-[color:var(--green-25)]"
+                [ngClass]="{
+                  'bg-[color:var(--yellow-25)]': !ks6aPeriod.isFixed
+                }"
+              >{{ t('ks6aBalance') }}</th>
+              <th
+                class="bg-[color:var(--green-25)]"
+                [ngClass]="{
+                  'bg-[color:var(--yellow-25)]': !ks6aPeriod.isFixed
+                }"
+              >{{ t('ks6aClose') }}</th>
+            </ng-container>
+          </ng-container>
+          <!-- Остатки -->
+          <ng-template #remainderTmpl>
+            <th
+              class="bg-[color:var(--purple-25)]"
+              [ngClass]="{
+                'bg-[color:var(--yellow-25)]': !ks6aPeriod.isFixed
+              }"
+            >{{ t('ks6aBalance') }}</th>
+            <th
+              class="bg-[color:var(--purple-25)]"
+              [ngClass]="{
+                'bg-[color:var(--yellow-25)]': !ks6aPeriod.isFixed
+              }"
+            >{{ t('ks6aClose') }}</th>
+          </ng-template>
         </ng-container>
         <!-- Подзаголовки итого по всем периодам -->
         <th class="bg-red-200">{{ t('ks6aClose') }}</th>
@@ -99,8 +165,10 @@
           <ng-container *ngFor="let ks6aPeriod of ks6aItems[0].ks6a.ks6aPeriods">
             <!-- Выполнение -->
             <ng-container *ngIf="ks6aPeriod.periodType.code === 'execution'; else remainderTmpl">
-              <td>--</td>
-              <td>{{ getExutionPeriodVolume(ks6aPeriod.periodDate, ks6aItem) }}</td>
+              <ng-container *ngIf="!isOnlyBalance">
+                <td>--</td>
+                <td>{{ getExutionPeriodVolume(ks6aPeriod.periodDate, ks6aItem) }}</td>
+              </ng-container>
             </ng-container>
             <!-- Остатки -->
             <ng-template #remainderTmpl>
@@ -120,8 +188,32 @@
           <!-- Выполнение/Остатки -->
           <ng-container *ngFor="let ks6aPeriod of ks6aItems[0].ks6a.ks6aPeriods">
             <!-- Выполнение -->
-            <td>--</td>
-            <td>{{ getContractorExutionPeriodVolume(ks6aPeriod.periodDate, ks6aItemContractor.executions) }}</td>
+            <ng-container *ngIf="ks6aPeriod.periodType.code === 'execution'; else remainderTmpl">
+              <ng-container *ngIf="!isOnlyBalance">
+                <td>--</td>
+                <!-- Не фиксированные -->
+                <ng-container *ngIf="!ks6aPeriod.isFixed; else fixedTmpl">
+                  <td>
+                    <input
+                      nz-input
+                      type="number"
+                      class="p-0"
+                      min="0"
+                      [value]="getContractorExutionPeriodVolume(ks6aPeriod.periodDate, ks6aItemContractor.executions)"
+                    />
+                  </td>
+                </ng-container>
+                <!-- Фиксированные -->
+                <ng-template #fixedTmpl>
+                  <td>{{ getContractorExutionPeriodVolume(ks6aPeriod.periodDate, ks6aItemContractor.executions) }}</td>
+                </ng-template>
+              </ng-container>
+            </ng-container>
+            <!-- Остатки -->
+            <ng-template #remainderTmpl>
+              <td>--</td>
+              <td>{{ getContractorExutionPeriodVolume(ks6aPeriod.periodDate, ks6aItemContractor.executions) }}</td>
+            </ng-template>
           </ng-container>
           <!-- Итого -->
           <td>{{ ks6aItemContractor.total.quantityVolume }}</td>

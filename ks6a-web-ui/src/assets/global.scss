@@ -69,3 +69,26 @@ nav ol {
   margin: 0;
   padding: 0;
 }
+
+.date-input-not-fix .ant-picker-input > input {
+  text-transform: uppercase;
+}
+::-webkit-input-placeholder {
+  text-transform: none;
+}
+:-moz-placeholder {
+  text-transform: none;
+}
+::-moz-placeholder {
+  text-transform: none;
+}
+:-ms-input-placeholder {
+  text-transform: none;
+}
+::placeholder {
+  text-transform: none;
+}
+
+.date-input-not-fix .ant-picker-clear {
+  background-color: var(--yellow-25);
+}

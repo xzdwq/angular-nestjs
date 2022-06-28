@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ProjectComponent } from '@page/project/project.component';
 import { AppRoutingModule } from '@app/app-routing.module';
-import { TranslocoRootModule } from '@app/transloco-root.module';
+import { TranslocoRootModule } from '@/app/definitions/transloco-root.module';
 import { MessageMaskModule } from '@cmp/message-mask/message-mask.module';
 import { LoadMaskModule } from '@cmp/load-mask/load-mask.module';
 import { ObjectEstimateModule } from '@page/object-estimate/object-estimate.module';

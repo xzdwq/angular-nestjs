@@ -32,5 +32,8 @@
   "ks6aBalance": "Остаток по КС-6а",
   "ks2Balance": "Остаток по КС-2",
   "totalAllPeriods": "Итоги за все периоды",
-  "balance": "Остаток"
+  "balance": "Остаток",
+  "onlyBalance": "Только остатки",
+  "addPeriod": "Добавить период",
+  "deletePeriod": "Удалить период"
 }

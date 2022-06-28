@@ -10,6 +10,8 @@ import { Contractor } from '@app/dto/contractor.dto';
 import { Ks6aItemContractors } from '@app/dto/ks6a-item-contractors.dto';
 import { Ks6aPeriods } from '@/app/dto/ks6a-periods.dto';
 import { PeriodType } from '@/app/dto/period-type.dto';
+import { AddKs6aPeriod } from '@/app/dto/add-ks6a-period.dto';
+import { UpdateKs6aPeriod } from '@/app/dto/update-ks6a-period.dto';
 
 export {
   Project,
@@ -24,4 +26,6 @@ export {
   Ks6aItemContractors,
   Ks6aPeriods,
   PeriodType,
+  AddKs6aPeriod,
+  UpdateKs6aPeriod,
 }
